@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { MdShoppingCart, MdMenu } from 'react-icons/md';
+import React, { useState, useCallback } from 'react';
+import { MdShoppingCart, MdMenu, MdClose } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -8,14 +8,17 @@ import {
   Container,
   HeaderTop,
   Menu,
-  LeftSide,
   Toggle,
+  LeftSide,
   RightSide,
   Cart,
+  MenuDropDown,
 } from './styles';
 
 const Header: React.FC = () => {
   const router = useRouter();
+
+  const [openMenu, setOpenMenu] = useState(false);
 
   const handleGoToCart = useCallback(() => {
     router.push('/cart', '/carrinho');
@@ -28,8 +31,12 @@ const Header: React.FC = () => {
       </HeaderTop>
       <Container>
         <Menu>
-          <Toggle>
-            <MdMenu size={30} color="#999" />
+          <Toggle onClick={() => setOpenMenu(!openMenu)}>
+            {openMenu ? (
+              <MdClose size={30} color="#999" />
+            ) : (
+              <MdMenu size={30} color="#999" />
+            )}
           </Toggle>
 
           <LeftSide>
@@ -57,7 +64,7 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <Link href="/">
-                  <a>Política de Frete</a>
+                  <a>Políticas e termos</a>
                 </Link>
               </li>
             </ul>
@@ -73,6 +80,26 @@ const Header: React.FC = () => {
           </RightSide>
         </Menu>
       </Container>
+
+      <MenuDropDown openMenu={openMenu}>
+        <ul>
+          <li>
+            <Link href="/products" as="/produtos">
+              <a>Produtos</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/faq">
+              <a>Perguntas frequentes</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/">
+              <a>Políticas e termos</a>
+            </Link>
+          </li>
+        </ul>
+      </MenuDropDown>
     </>
   );
 };

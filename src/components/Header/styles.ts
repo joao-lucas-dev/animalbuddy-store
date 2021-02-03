@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface IMenuDropDown {
+  openMenu: boolean;
+}
+
 export const HeaderTop = styled.div`
   background: #7239f2;
   display: flex;
@@ -76,6 +80,11 @@ export const LeftSide = styled.div`
 
 export const Toggle = styled.div`
   display: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
 
   @media (max-width: 925px) {
     display: block;
@@ -117,6 +126,37 @@ export const Cart = styled.div`
 
       @media (max-width: 425px) {
         font-size: 16px;
+      }
+    }
+  }
+`;
+
+export const MenuDropDown = styled.div<IMenuDropDown>`
+  border-bottom: 1px solid #dddee2;
+  display: ${(props) => (props.openMenu ? 'block' : 'none')};
+
+  @media (min-width: 925px) {
+    display: none;
+  }
+
+  ul {
+    li {
+      padding: 15px 20px;
+      display: block;
+      font-size: 18px;
+      color: #999;
+      font-weight: 500;
+
+      a {
+        color: #999;
+      }
+
+      & + li {
+        border-top: 1px solid #dddee2;
+      }
+
+      &:hover {
+        opacity: 0.6;
       }
     }
   }
