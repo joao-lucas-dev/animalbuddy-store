@@ -5,7 +5,17 @@ import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
-import { Container, CarouselDesk, CarouselPhone } from '../styles/pages/Home';
+import {
+  Container,
+  CarouselDesk,
+  CarouselPhone,
+  InfoArea,
+  Item,
+  LeftSide,
+  ImageInfoDesk,
+  ImageInfoPhone,
+  RightSide,
+} from '../styles/pages/Home';
 
 const Home: React.FC = () => {
   return (
@@ -51,10 +61,50 @@ const Home: React.FC = () => {
           </Slider>
         </CarouselProvider>
       </CarouselPhone>
-      {/*
+
       <Container>
-        <div>fhdsufhsd</div>
-      </Container> */}
+        <InfoArea>
+          <Item showInPhoneMode>
+            <LeftSide>
+              <ImageInfoDesk>
+                <Image src="/truck.svg" width={73} height={73} />
+              </ImageInfoDesk>
+              <ImageInfoPhone>
+                <Image src="/truck.svg" width={41} height={41} />
+              </ImageInfoPhone>
+            </LeftSide>
+            <RightSide>
+              <span>Frete Grátis</span>
+              <span>PARA TODO PAÍS</span>
+            </RightSide>
+          </Item>
+
+          <Item showInPhoneMode>
+            <LeftSide>
+              <ImageInfoDesk>
+                <Image src="/credit-card.svg" width={58} height={58} />
+              </ImageInfoDesk>
+              <ImageInfoPhone>
+                <Image src="/credit-card.svg" width={31} height={31} />
+              </ImageInfoPhone>
+            </LeftSide>
+            <RightSide>
+              <span>Parcelamento</span>
+              <span>EM ATÉ 12X</span>
+            </RightSide>
+          </Item>
+
+          <Item showInPhoneMode={false}>
+            <LeftSide>
+              <Image src="/open-box.svg" width={57} height={57} />
+            </LeftSide>
+            <RightSide>
+              <span>Entrega 100%</span>
+              <span>SEGURA</span>
+            </RightSide>
+          </Item>
+        </InfoArea>
+      </Container>
     </>
   );
 };

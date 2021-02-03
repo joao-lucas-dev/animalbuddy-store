@@ -115,7 +115,8 @@ export const Cart = styled.div`
     padding: 8px 12px;
 
     @media (max-width: 425px) {
-      padding: 6px 8px;
+      padding: 5px;
+      border-radius: 8px;
     }
 
     span {
