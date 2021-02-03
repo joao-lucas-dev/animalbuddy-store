@@ -1,7 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import { AiOutlineFacebook, AiOutlineInstagram } from 'react-icons/ai';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
+
+import Product from '../components/Product';
 
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
@@ -15,6 +19,17 @@ import {
   ImageInfoDesk,
   ImageInfoPhone,
   RightSide,
+  OfferArea,
+  TopOfferArea,
+  ProductsArea,
+  SeeMoreArea,
+  Footer,
+  Divider,
+  Content,
+  Left,
+  Mid,
+  Right,
+  RedesSociais,
 } from '../styles/pages/Home';
 
 const Home: React.FC = () => {
@@ -104,7 +119,86 @@ const Home: React.FC = () => {
             </RightSide>
           </Item>
         </InfoArea>
+
+        <OfferArea>
+          <TopOfferArea>
+            <h2>OFERTAS</h2>
+          </TopOfferArea>
+
+          <ProductsArea>
+            <Product />
+            <Product />
+            <Product />
+          </ProductsArea>
+
+          <SeeMoreArea>
+            <Link href="/products" as="/produtos">
+              <a>Ver tudo</a>
+            </Link>
+          </SeeMoreArea>
+        </OfferArea>
       </Container>
+
+      <Footer>
+        <Divider />
+        <Container>
+          <Content>
+            <Left>
+              <Image src="/logo.svg" alt="Logo" width={200} height={30} />
+
+              <span>© 2021, AnimalBuddy</span>
+            </Left>
+            <Mid>
+              <span>MENU PRINCIPAL</span>
+
+              <ul>
+                <li>
+                  <Link href="/products" as="/produtos">
+                    <a>Produtos</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq">
+                    <a>Perguntas Frequentes</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/policies-terms" as="/politicas-e-termos">
+                    <a>Políticas e Termos</a>
+                  </Link>
+                </li>
+              </ul>
+
+              <span>SIGA-NOS</span>
+
+              <RedesSociais>
+                <a href="">
+                  <AiOutlineFacebook size={30} color="#7239f2" />
+                </a>
+                <a href="">
+                  <AiOutlineInstagram size={30} color="#7239f2" />
+                </a>
+              </RedesSociais>
+            </Mid>
+            <Right>
+              <span>CONTATO</span>
+
+              <ul>
+                <li>
+                  <a href="tel:81971112339">WhatsApp: (81) 97111-2339</a>
+                </li>
+                <li>
+                  <a href="malito:contato@animalbuddy.com.br">
+                    E-mail: contato@animalbuddy.com.br
+                  </a>
+                </li>
+              </ul>
+
+              <Image src="/mercadopago.png" width={300} height={70} />
+            </Right>
+          </Content>
+        </Container>
+      </Footer>
     </>
   );
 };
