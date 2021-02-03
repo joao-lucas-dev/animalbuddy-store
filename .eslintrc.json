@@ -39,7 +39,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/prefer-default-export": "off",
 		"no-use-before-define": "off",
-	  "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "jsx-a11y/anchor-is-valid": "off",
 		"@typescript-eslint/explicit-function-return-type": [
       "error",
       {

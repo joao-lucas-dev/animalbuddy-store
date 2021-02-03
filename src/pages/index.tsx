@@ -9,8 +9,6 @@ const Home: React.FC = () => {
       <Head>
         <title>AnimalBuddy - O Seu Petshop Preferido</title>
       </Head>
-
-      <h1>Home</h1>
     </Container>
   );
 };
