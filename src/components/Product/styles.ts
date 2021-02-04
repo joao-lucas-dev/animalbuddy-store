@@ -74,6 +74,7 @@ export const PriceArea = styled.div`
 export const OldPrice = styled.span`
   font-size: 14px;
   font-weight: 500;
+  color: #222;
 `;
 
 export const NewPrice = styled.span`

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "next": "10.0.6",
     "polished": "^4.1.0",
     "pure-react-carousel": "^1.27.6",
