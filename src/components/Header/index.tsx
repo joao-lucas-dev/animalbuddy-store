@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { MdShoppingCart, MdMenu, MdClose } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,7 +15,11 @@ import {
   MenuDropDown,
 } from './styles';
 
-const Header: React.FC = () => {
+interface IHeader {
+  closeMenu: boolean;
+}
+
+const Header: React.FC<IHeader> = ({ closeMenu }) => {
   const router = useRouter();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,6 +27,10 @@ const Header: React.FC = () => {
   const handleGoToCart = useCallback(() => {
     router.push('/cart', '/carrinho');
   }, [router]);
+
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [closeMenu]);
 
   return (
     <>
@@ -40,7 +48,7 @@ const Header: React.FC = () => {
           </Toggle>
 
           <LeftSide>
-            <Link href="/">
+            <Link href="/" scroll>
               <a>
                 <Image
                   src="/logo.svg"
@@ -53,17 +61,17 @@ const Header: React.FC = () => {
 
             <ul>
               <li>
-                <Link href="/products" as="/produtos">
+                <Link href="/produtos" scroll>
                   <a>Produtos</a>
                 </Link>
               </li>
               <li>
-                <Link href="/faq" as="/perguntas-frequentes">
+                <Link href="/perguntas-frequentes" scroll>
                   <a>Perguntas frequentes</a>
                 </Link>
               </li>
               <li>
-                <Link href="/policies-terms" as="/politicas-e-termos">
+                <Link href="/politicas-e-termos" scroll>
                   <a>Políticas e termos</a>
                 </Link>
               </li>
@@ -84,17 +92,17 @@ const Header: React.FC = () => {
       <MenuDropDown openMenu={openMenu}>
         <ul>
           <li>
-            <Link href="/products" as="/produtos">
+            <Link href="/produtos" scroll>
               <a>Produtos</a>
             </Link>
           </li>
           <li>
-            <Link href="/faq">
+            <Link href="/perguntas-frequentes" scroll>
               <a>Perguntas frequentes</a>
             </Link>
           </li>
           <li>
-            <Link href="/">
+            <Link href="/politicas-e-termos" scroll>
               <a>Políticas e termos</a>
             </Link>
           </li>

@@ -30,17 +30,17 @@ const FooterApp: React.FC = () => {
 
             <ul>
               <li>
-                <Link href="/products" as="/produtos">
+                <Link href="/produtos" scroll>
                   <a>Produtos</a>
                 </Link>
               </li>
               <li>
-                <Link href="/faq" as="/perguntas-frequentes">
+                <Link href="/perguntas-frequentes" scroll>
                   <a>Perguntas Frequentes</a>
                 </Link>
               </li>
               <li>
-                <Link href="/policies-terms" as="/politicas-e-termos">
+                <Link href="/politicas-e-termos" scroll>
                   <a>Políticas e Termos</a>
                 </Link>
               </li>

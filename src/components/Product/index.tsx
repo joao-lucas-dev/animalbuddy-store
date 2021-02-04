@@ -31,7 +31,7 @@ interface IProductData {
 const Product: React.FC<IProductData> = ({ item }) => {
   return (
     <Container>
-      <Link href={`/products/${item.slug}`} as={`/produtos/${item.slug}`}>
+      <Link href={`/produtos/${item.slug}`} scroll>
         <a>
           {item.discount > 0 && (
             <PromoArea>

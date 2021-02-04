@@ -42,6 +42,7 @@
     "@typescript-eslint/no-use-before-define": ["error"],
     "jsx-a11y/anchor-is-valid": "off",
     "camelcase": "off",
+    "no-console": "off",
     "no-underscore-dangle": "off",
 		"@typescript-eslint/explicit-function-return-type": [
       "error",

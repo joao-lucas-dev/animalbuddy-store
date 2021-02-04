@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 
+import Header from '../components/Header';
 import Product from '../components/Product';
 
 import api from '../services';
@@ -51,6 +52,8 @@ const Home: React.FC<IHome> = ({ products }) => {
       <Head>
         <title>AnimalBuddy - O Seu Petshop Preferido</title>
       </Head>
+
+      <Header closeMenu />
 
       <CarouselDesk>
         <CarouselProvider
@@ -145,7 +148,7 @@ const Home: React.FC<IHome> = ({ products }) => {
           </ProductsArea>
 
           <SeeMoreArea>
-            <Link href="/products" as="/produtos">
+            <Link href="/produtos" scroll>
               <a>Ver tudo</a>
             </Link>
           </SeeMoreArea>
@@ -157,7 +160,7 @@ const Home: React.FC<IHome> = ({ products }) => {
 
 export const getStaticProps: GetStaticProps<IHome> = async () => {
   const response = await api.get(
-    '/store/products?page=0&limit=9&order=recentDate',
+    '/store/products?page=0&limit=6&order=recentDate',
   );
 
   return {
