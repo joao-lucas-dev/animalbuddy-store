@@ -45,6 +45,20 @@ export const Container = styled.div`
   }
 `;
 
+export const ReviewArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+
+  span {
+    font-size: 12px;
+    color: #000;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+`;
+
 export const PromoArea = styled.div`
   background: #ffb900;
   width: 100px;

@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import { MdShoppingCart, MdMenu, MdClose } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+import { useCart } from '../../context/cart';
 
 import {
   Container,
@@ -21,6 +23,7 @@ interface IHeader {
 
 const Header: React.FC<IHeader> = ({ closeMenu }) => {
   const router = useRouter();
+  const { cart } = useCart();
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -82,7 +85,7 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
             <Cart onClick={handleGoToCart}>
               <div>
                 <MdShoppingCart size={18} color="#7239f2" />
-                <span>0</span>
+                <span>{cart.length}</span>
               </div>
             </Cart>
           </RightSide>
@@ -112,4 +115,4 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

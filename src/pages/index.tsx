@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
@@ -7,6 +6,7 @@ import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 
 import Header from '../components/Header';
 import Product from '../components/Product';
+import SEO from '../components/SEO';
 
 import api from '../services';
 
@@ -40,6 +40,8 @@ interface IProduct {
   images_url: string[];
   slug: string;
   imageName: string;
+  reviewsCount: number;
+  averageReviews: number;
 }
 
 interface IHome {
@@ -49,9 +51,12 @@ interface IHome {
 const Home: React.FC<IHome> = ({ products }) => {
   return (
     <>
-      <Head>
-        <title>AnimalBuddy - O Seu Petshop Preferido</title>
-      </Head>
+      <SEO
+        title="AnimalBuddy - O Petshop Perfeito Para Seu Pet"
+        image="logo_seo.png"
+        description="Na AnimalBuddy você encontra todos os produtos para seu PET em um só lugar. Venha conferir!"
+        shouldExcludeTitleSufiix
+      />
 
       <Header closeMenu />
 
@@ -167,7 +172,7 @@ export const getStaticProps: GetStaticProps<IHome> = async () => {
     props: {
       products: response.data,
     },
-    revalidate: 600,
+    revalidate: 120,
   };
 };
 

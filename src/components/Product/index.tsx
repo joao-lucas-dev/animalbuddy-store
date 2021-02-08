@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
+import BeautyStars from 'beauty-stars';
 
 import {
   Container,
   PromoArea,
+  ReviewArea,
   PriceArea,
   OldPrice,
   NewPrice,
@@ -22,6 +24,8 @@ interface IProduct {
   images_url: string[];
   slug: string;
   imageName: string;
+  reviewsCount: number;
+  averageReviews: number;
 }
 
 interface IProductData {
@@ -42,6 +46,18 @@ const Product: React.FC<IProductData> = ({ item }) => {
           <img src={item.images_url[0]} alt={item.imageName} />
 
           <h3>{item.title}</h3>
+
+          <ReviewArea>
+            <BeautyStars
+              value={item.averageReviews}
+              gap="2px"
+              activeColor="#FFB900"
+              inactiveColor="#fce4a1"
+              size="10px"
+            />
+
+            <span>({item.reviewsCount})</span>
+          </ReviewArea>
 
           <PriceArea>
             {item.discount > 0 && (

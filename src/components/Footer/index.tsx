@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AiOutlineFacebook, AiOutlineInstagram } from 'react-icons/ai';
@@ -83,4 +83,4 @@ const FooterApp: React.FC = () => {
   );
 };
 
-export default FooterApp;
+export default memo(FooterApp);

@@ -4,6 +4,7 @@ import { MdArrowDropDown } from 'react-icons/md';
 
 import Header from '../components/Header';
 import Product from '../components/Product';
+import SEO from '../components/SEO';
 
 import api from '../services';
 
@@ -31,6 +32,8 @@ interface IProduct {
   images_url: string[];
   slug: string;
   imageName: string;
+  reviewsCount: number;
+  averageReviews: number;
 }
 
 interface IProducts {
@@ -82,7 +85,14 @@ const Products: React.FC<IProducts> = ({ products }) => {
 
   return (
     <>
+      <SEO
+        title="Produtos"
+        image="logo_seo.png"
+        description="Todos os produtos para seu PET em um só lugar. Venha conferir!"
+      />
+
       <Header closeMenu />
+
       <Container>
         <ProductsArea>
           <TopProductsArea>
@@ -172,7 +182,7 @@ export const getStaticProps: GetStaticProps<IProducts> = async () => {
     props: {
       products: response.data,
     },
-    revalidate: 600,
+    revalidate: 120,
   };
 };
 
