@@ -22,13 +22,18 @@ interface IProduct {
 
 interface CartContextData {
   cart: IProduct[];
+  totalPriceString: string;
   addProductToCart(product: IProduct): void;
+  removeProductFromCart(product: IProduct): void;
+  updateQtdProduct(product: IProduct, qtd: number): void;
+  clearCart(): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<IProduct[]>([]);
+  const [totalPriceString, setTotalPriceString] = useState('');
 
   useEffect(() => {
     const cartStorage = localStorage.getItem('@AnimalBuddy:cart');
@@ -37,6 +42,19 @@ const CartProvider: React.FC = ({ children }) => {
       setCart(JSON.parse(cartStorage));
     }
   }, []);
+
+  useEffect(() => {
+    const totalPrice = cart.reduce((acc, item) => {
+      return acc + item.price * item.qtd;
+    }, 0);
+
+    setTotalPriceString(
+      totalPrice.toLocaleString('pt-br', {
+        style: 'currency',
+        currency: 'BRL',
+      }),
+    );
+  }, [cart]);
 
   const addProductToCart = useCallback(
     (product: IProduct) => {
@@ -48,10 +66,21 @@ const CartProvider: React.FC = ({ children }) => {
         cart[findIndex].color = product.color;
         cart[findIndex].size = product.size;
         cart[findIndex].model = product.model;
-        cart[findIndex].qtd = product.qtd;
+        cart[findIndex].qtd += product.qtd;
 
         setCart(cart);
         localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(cart));
+
+        const totalPrice = cart.reduce((acc, item) => {
+          return acc + item.price * item.qtd;
+        }, 0);
+
+        setTotalPriceString(
+          totalPrice.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          }),
+        );
       } else {
         setCart((state) => {
           localStorage.setItem(
@@ -66,8 +95,57 @@ const CartProvider: React.FC = ({ children }) => {
     [cart],
   );
 
+  const removeProductFromCart = useCallback(
+    (product: IProduct) => {
+      const newCart = cart.filter((item) => item._id !== product._id);
+
+      setCart(newCart);
+      localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(newCart));
+    },
+    [cart],
+  );
+
+  const updateQtdProduct = useCallback(
+    (product: IProduct, qtd: number) => {
+      const findIndex = cart.findIndex((item) => item._id === product._id);
+
+      if (findIndex !== -1) {
+        cart[findIndex].qtd = qtd;
+
+        setCart(cart);
+        localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(cart));
+
+        const totalPrice = cart.reduce((acc, item) => {
+          return acc + item.price * item.qtd;
+        }, 0);
+
+        setTotalPriceString(
+          totalPrice.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          }),
+        );
+      }
+    },
+    [cart],
+  );
+
+  const clearCart = useCallback(() => {
+    setCart([]);
+    localStorage.setItem('@AnimalBuddy:cart', JSON.stringify([]));
+  }, []);
+
   return (
-    <CartContext.Provider value={{ cart, addProductToCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        totalPriceString,
+        addProductToCart,
+        removeProductFromCart,
+        updateQtdProduct,
+        clearCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

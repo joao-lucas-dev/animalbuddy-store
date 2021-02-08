@@ -7,11 +7,11 @@ interface IImgArea {
 }
 
 interface IVariantQtd {
-  phone?: boolean;
+  phone?: string;
 }
 
 interface IButton {
-  phone?: boolean;
+  phone?: string;
 }
 
 interface IGraphTwo {
@@ -88,16 +88,16 @@ export const ImgArea = styled.div<IImgArea>`
 
 export const ButtonBackCustom = styled(ButtonBack)<IButton>`
   position: absolute;
-  top: ${(props) => (props.phone ? '65px' : '85px')};
-  left: ${(props) => (props.phone ? '0' : '-10px')};
+  top: ${(props) => (props.phone === 'true' ? '65px' : '85px')};
+  left: ${(props) => (props.phone === 'true' ? '0' : '-10px')};
   border: none;
   background: transparent;
 `;
 
 export const ButtonNextCustom = styled(ButtonNext)<IButton>`
   position: absolute;
-  top: ${(props) => (props.phone ? '65px' : '85px')};
-  right: ${(props) => (props.phone ? '0' : '-10px')};
+  top: ${(props) => (props.phone === 'true' ? '65px' : '85px')};
+  right: ${(props) => (props.phone === 'true' ? '0' : '-10px')};
   border: none;
   background: transparent;
 `;
@@ -232,11 +232,11 @@ export const VariantQtd = styled.div<IVariantQtd>`
   flex-direction: column;
 
   @media (min-width: 426px) {
-    display: ${(props) => (props.phone ? 'none' : 'flex')};
+    display: ${(props) => (props.phone === 'true' ? 'none' : 'flex')};
   }
 
   @media (max-width: 425px) {
-    display: ${(props) => (props.phone ? 'flex' : 'none')};
+    display: ${(props) => (props.phone === 'true' ? 'flex' : 'none')};
     margin-right: 20px;
   }
 

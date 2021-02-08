@@ -453,11 +453,11 @@ const Product: React.FC<IProductProps> = ({
                         );
                       })}
                     </Slider>
-                    <ButtonBackCustom phone>
+                    <ButtonBackCustom phone="true">
                       <IoIosArrowBack size={30} />
                     </ButtonBackCustom>
 
-                    <ButtonNextCustom phone>
+                    <ButtonNextCustom phone="true">
                       <IoIosArrowForward size={30} />
                     </ButtonNextCustom>
                   </CarouselProvider>
@@ -554,7 +554,7 @@ const Product: React.FC<IProductProps> = ({
                 </VariantsArea>
 
                 <AddToCartArea>
-                  <VariantQtd phone>
+                  <VariantQtd phone="true">
                     <span>Qtd</span>
 
                     <QtdArea>
