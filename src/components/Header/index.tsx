@@ -28,7 +28,11 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const handleGoToCart = useCallback(() => {
-    router.push('/cart', '/carrinho');
+    router.push('/carrinho');
+  }, [router]);
+
+  useEffect(() => {
+    router.prefetch('/carrinho');
   }, [router]);
 
   useEffect(() => {

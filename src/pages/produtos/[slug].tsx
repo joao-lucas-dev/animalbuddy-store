@@ -170,6 +170,10 @@ const Product: React.FC<IProductProps> = ({
   const [stars, setStars] = useState(1);
 
   useEffect(() => {
+    router.prefetch('/carrinho');
+  }, [router]);
+
+  useEffect(() => {
     const { imagesArray, oldPriceString, priceString, variants } = product;
 
     if (imagesArray) {

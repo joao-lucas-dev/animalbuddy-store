@@ -310,6 +310,14 @@ export const DescriptionArea = styled.div`
     font-weight: 500;
     margin-bottom: 20px;
   }
+
+  img {
+    width: 100%;
+  }
+
+  p {
+    margin: 0 0 16px;
+  }
 `;
 
 export const Markdown = styled(ReactMarkdown)`

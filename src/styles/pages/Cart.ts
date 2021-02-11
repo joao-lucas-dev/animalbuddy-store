@@ -73,12 +73,24 @@ export const TopCart = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  h1 {
+    font-size: 26px;
+
+    @media (max-width: 425px) {
+      font-size: 16px;
+    }
+  }
+
   button {
     border: 0;
     background: transparent;
     color: #7239f2;
     transition: all 0.2s linear;
     font-size: 16px;
+
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
 
     &:hover {
       opacity: 0.6;
@@ -105,6 +117,10 @@ export const FreteArea = styled.div`
     font-size: 18px;
     color: #333;
     font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -112,6 +128,10 @@ export const FretePrice = styled.div`
   font-size: 20px;
   color: #333;
   font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
 `;
 
 export const TotalArea = styled.div`
@@ -126,6 +146,10 @@ export const TotalArea = styled.div`
     font-size: 22px;
     color: #333;
     font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 18px;
+    }
   }
 `;
 
@@ -133,6 +157,10 @@ export const TotalPrice = styled.div`
   font-size: 26px;
   color: #000;
   font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 22px;
+  }
 `;
 
 export const FinallyArea = styled.div`

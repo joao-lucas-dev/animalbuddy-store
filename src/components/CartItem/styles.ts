@@ -27,6 +27,11 @@ export const LeftSide = styled.div`
   img {
     width: 120px;
     height: 120px;
+
+    @media (max-width: 780px) {
+      width: 100px;
+      height: 100px;
+    }
   }
 `;
 
@@ -40,12 +45,21 @@ export const Title = styled.div`
     align-items: center;
     margin-left: 0;
     margin-bottom: 30px;
+    margin-top: 10px;
   }
 
   a {
     font-size: 22px;
     font-weight: 500px;
     color: #333;
+
+    @media (max-width: 780px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 780px) {
+      text-align: center;
+    }
 
     &:hover {
       text-decoration: underline;

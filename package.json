@@ -8,10 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@uiw/react-md-editor": "^2.1.8",
     "@unform/core": "^2.1.5",
     "@unform/web": "^2.1.5",
     "axios": "^0.21.1",
     "beauty-stars": "^1.1.0",
+    "cep-promise": "^4.0.4",
     "date-fns": "^2.17.0",
     "filesize": "^6.1.0",
     "next": "10.0.6",
@@ -21,6 +23,7 @@
     "react-dom": "17.0.1",
     "react-dropzone": "^11.3.0",
     "react-icons": "^4.1.0",
+    "react-input-mask": "^2.0.4",
     "react-markdown": "^5.0.3",
     "styled-components": "^5.2.1",
     "uuid": "^8.3.2",
@@ -29,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",
+    "@types/react-input-mask": "^3.0.0",
     "@types/styled-components": "^5.1.7",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",

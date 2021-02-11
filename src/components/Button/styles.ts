@@ -1,11 +1,21 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { shade } from 'polished';
 
 interface IButton {
+  loading?: boolean;
   miniWidth?: boolean;
   halfWidth?: boolean;
   phoneMode?: boolean;
 }
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const ButtonContainer = styled.button<IButton>`
   background: #7239f2;
@@ -41,6 +51,14 @@ export const ButtonContainer = styled.button<IButton>`
       @media (max-width: 425px) {
         height: 48px;
         font-size: 14px;
+      }
+    `}
+
+    ${(props) =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
       }
     `}
 

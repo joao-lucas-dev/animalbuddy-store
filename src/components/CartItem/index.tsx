@@ -33,9 +33,10 @@ interface IProduct {
 
 interface ICartItem {
   item: IProduct;
+  checkout?: boolean;
 }
 
-const CartItem: React.FC<ICartItem> = ({ item }) => {
+const CartItem: React.FC<ICartItem> = ({ item, checkout }) => {
   const { removeProductFromCart, updateQtdProduct } = useCart();
 
   const [qtd, setQtd] = useState(1);
@@ -76,33 +77,39 @@ const CartItem: React.FC<ICartItem> = ({ item }) => {
 
         <Title>
           <Link href={`/produtos/${item.slug}`}>
-            <a>{item.title}</a>
+            <a>
+              {item.title} {checkout && `x ${qtd}`}
+            </a>
           </Link>
 
           <span>
             {item.color} / {item.size !== '' ? item.size : item.model}
           </span>
 
-          <button type="button" onClick={() => removeProductFromCart(item)}>
-            Remover
-          </button>
+          {!checkout && (
+            <button type="button" onClick={() => removeProductFromCart(item)}>
+              Remover
+            </button>
+          )}
         </Title>
       </LeftSide>
 
       <RightSide>
-        <VariantQtd>
-          <QtdArea>
-            <LessButton onClick={() => handleChangeQtd('remove')}>
-              <MdRemove />
-            </LessButton>
-            <Mid>
-              <span>{qtd}</span>
-            </Mid>
-            <PlusButton onClick={() => handleChangeQtd('add')}>
-              <MdAdd />
-            </PlusButton>
-          </QtdArea>
-        </VariantQtd>
+        {!checkout && (
+          <VariantQtd>
+            <QtdArea>
+              <LessButton onClick={() => handleChangeQtd('remove')}>
+                <MdRemove />
+              </LessButton>
+              <Mid>
+                <span>{qtd}</span>
+              </Mid>
+              <PlusButton onClick={() => handleChangeQtd('add')}>
+                <MdAdd />
+              </PlusButton>
+            </QtdArea>
+          </VariantQtd>
+        )}
 
         <Price>{item.priceString}</Price>
       </RightSide>

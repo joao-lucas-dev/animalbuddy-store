@@ -95,14 +95,23 @@ const CartProvider: React.FC = ({ children }) => {
     [cart],
   );
 
+  const clearCart = useCallback(() => {
+    setCart([]);
+    localStorage.removeItem('@AnimalBuddy:cart');
+  }, []);
+
   const removeProductFromCart = useCallback(
     (product: IProduct) => {
       const newCart = cart.filter((item) => item._id !== product._id);
 
-      setCart(newCart);
-      localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(newCart));
+      if (newCart.length > 0) {
+        setCart(newCart);
+        localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(newCart));
+      } else {
+        clearCart();
+      }
     },
-    [cart],
+    [cart, clearCart],
   );
 
   const updateQtdProduct = useCallback(
@@ -129,11 +138,6 @@ const CartProvider: React.FC = ({ children }) => {
     },
     [cart],
   );
-
-  const clearCart = useCallback(() => {
-    setCart([]);
-    localStorage.setItem('@AnimalBuddy:cart', JSON.stringify([]));
-  }, []);
 
   return (
     <CartContext.Provider
