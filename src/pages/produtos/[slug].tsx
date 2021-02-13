@@ -243,7 +243,7 @@ const Product: React.FC<IProductProps> = ({
   const handleChangeSize = useCallback(
     (e) => {
       const findSize = product.variants.size.find(
-        (item) => item.name === e.target.value,
+        (item) => item.name === `${e.target.value} `,
       );
 
       setNewOldPriceString(findSize.oldPriceString);
