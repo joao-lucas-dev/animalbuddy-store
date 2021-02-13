@@ -49,6 +49,7 @@ import {
   EconomyArea,
   VariantsArea,
   Variant,
+  SelectArea,
   VariantQtd,
   QtdArea,
   LessButton,
@@ -508,24 +509,30 @@ const Product: React.FC<IProductProps> = ({
                 <VariantsArea>
                   <Variant>
                     <span>Cor</span>
-                    <select onChange={handleChangeColor}>
-                      {product.variants.color.map((color) => {
-                        return (
-                          <option key={color.name} value={color.name}>
-                            {color.name}
-                          </option>
-                        );
-                      })}
-                    </select>
+                    <SelectArea>
+                      <select onChange={handleChangeColor}>
+                        {product.variants.color.map((color) => {
+                          return (
+                            <option key={color.name} value={color.name}>
+                              {color.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <IoIosArrowForward />
+                    </SelectArea>
                   </Variant>
                   {product.variants.size.length > 0 && (
                     <Variant>
                       <span>Tamanho</span>
-                      <select onChange={handleChangeSize}>
-                        {product.variants.size.map((size) => {
-                          return <option key={size.name}>{size.name}</option>;
-                        })}
-                      </select>
+                      <SelectArea>
+                        <select onChange={handleChangeSize}>
+                          {product.variants.size.map((size) => {
+                            return <option key={size.name}>{size.name}</option>;
+                          })}
+                        </select>
+                        <IoIosArrowForward />
+                      </SelectArea>
                     </Variant>
                   )}
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { GetStaticProps } from 'next';
-import { MdArrowDropDown } from 'react-icons/md';
+import { IoIosArrowForward } from 'react-icons/io';
 
 import Header from '../components/Header';
 import Product from '../components/Product';
@@ -15,7 +15,7 @@ import {
   OrderArea,
   TopOrderArea,
   BottomOrderArea,
-  MenuDropDown,
+  SelectArea,
   ProductsContent,
   SeeMoreArea,
 } from '../styles/pages/Products';
@@ -41,23 +41,21 @@ interface IProducts {
 }
 
 const Products: React.FC<IProducts> = ({ products }) => {
-  const [openOrderMenu, setOpenOrderMenu] = useState(false);
   const [page, setPage] = useState(0);
-  const [nameOrder, setNameOrder] = useState('Mais recentes');
   const [orderType, setOrderType] = useState('recentDate');
   const [newProducts, setNewProducts] = useState(products);
   const [hideSeeMore, setHideSeeMore] = useState(false);
 
-  const handleChangeOrder = useCallback(async (order: string, name: string) => {
+  const handleChangeOrder = useCallback(async (e) => {
     try {
+      const { value } = e.target;
+
       const response = await api.get(
-        `/store/products?page=0&limit=6&order=${order}`,
+        `/store/products?page=0&limit=6&order=${value}`,
       );
 
       setNewProducts(response.data);
-      setNameOrder(name);
-      setOpenOrderMenu(false);
-      setOrderType(order);
+      setOrderType(value);
       setHideSeeMore(false);
     } catch (err) {
       console.log(err);
@@ -102,56 +100,17 @@ const Products: React.FC<IProducts> = ({ products }) => {
               <TopOrderArea>
                 <span>Ordernar por:</span>
               </TopOrderArea>
-              <BottomOrderArea onClick={() => setOpenOrderMenu(!openOrderMenu)}>
-                <span>
-                  {nameOrder} <MdArrowDropDown size={20} color="#333" />
-                </span>
+              <BottomOrderArea>
+                <SelectArea>
+                  <select onClick={handleChangeOrder}>
+                    <option value="recentDate">Mais recentes</option>
+                    <option value="oldestDate">Mais antigos</option>
+                    <option value="biggestPrice">Maior preço</option>
+                    <option value="lowestPrice">Menor preço</option>
+                  </select>
+                  <IoIosArrowForward />
+                </SelectArea>
               </BottomOrderArea>
-
-              <MenuDropDown openOrderMenu={openOrderMenu}>
-                <ul>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleChangeOrder('recentDate', 'Mais recentes');
-                      }}
-                    >
-                      Mais recentes
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleChangeOrder('oldestDate', 'Mais antigos');
-                      }}
-                    >
-                      Mais antigos
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleChangeOrder('biggestPrice', ' Maior preço');
-                      }}
-                    >
-                      Maior preço
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        handleChangeOrder('lowestPrice', 'Menor preço');
-                      }}
-                    >
-                      Menor preço
-                    </button>
-                  </li>
-                </ul>
-              </MenuDropDown>
             </OrderArea>
           </TopProductsArea>
 

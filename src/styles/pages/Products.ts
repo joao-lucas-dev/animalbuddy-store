@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
-interface IMenuDropDown {
-  openOrderMenu: boolean;
-}
-
 export const Container = styled.div`
   width: 100%;
   max-width: 1090px;
@@ -74,38 +70,32 @@ export const BottomOrderArea = styled.div`
   }
 `;
 
-export const MenuDropDown = styled.div<IMenuDropDown>`
-  position: absolute;
-  background: #fff;
-  z-index: 10;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  margin-top: 5px;
+export const SelectArea = styled.div`
+  width: 140px;
   border-radius: 5px;
-  display: ${(props) => (props.openOrderMenu ? 'block' : 'none')};
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
 
-  ul {
-    width: 130px;
+  select {
+    position: absolute;
+    -webkit-appearance: none;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    font-family: 'Work Sans', sans-serif;
+    cursor: pointer;
+    z-index: 5;
+  }
 
-    li {
-      padding: 10px 16px;
-      cursor: pointer;
-      transition: all 0.2s linear;
-
-      & + li {
-        border-top: 1px solid #ccc;
-      }
-
-      &:hover {
-        background: #f4f4f4;
-      }
-
-      button {
-        border: 0;
-        background: transparent;
-        font-size: 14px;
-        font-weight: 500;
-      }
-    }
+  svg {
+    transform: rotate(90deg);
+    margin-right: 10px;
   }
 `;
 

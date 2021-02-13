@@ -213,17 +213,38 @@ export const Variant = styled.div`
     color: #666;
     margin-bottom: 5px;
   }
+`;
+
+export const SelectArea = styled.div`
+  width: 140px;
+  height: 48px;
+  background: #f4f4f4;
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
 
   select {
-    width: 140px;
+    position: absolute;
+    -webkit-appearance: none;
+    width: 100%;
     height: 48px;
-    background: #f4f4f4;
-    border: none;
-    border-radius: 5px;
+    border: 0;
+    background: transparent;
     padding: 10px;
     font-size: 16px;
     color: #333;
     font-weight: 500;
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  svg {
+    transform: rotate(90deg);
+    margin-right: 10px;
   }
 `;
 
@@ -258,7 +279,6 @@ export const QtdArea = styled.div`
   background: #f4f4f4;
   border: none;
   border-radius: 5px;
-  padding: 10px;
 `;
 
 export const LessButton = styled.button`
@@ -266,6 +286,7 @@ export const LessButton = styled.button`
   cursor: pointer;
   transition: all 0.2s linear;
   border: 0;
+  padding: 5px;
   background: transparent;
 
   &:hover {
@@ -284,6 +305,7 @@ export const PlusButton = styled.button`
   cursor: pointer;
   transition: all 0.2s linear;
   border: 0;
+  padding: 5px;
   background: transparent;
 
   &:hover {
