@@ -10,6 +10,7 @@ import cep from 'cep-promise';
 
 import { useCart } from '../context/cart';
 import { usePayer } from '../context/payer';
+import { useToast } from '../context/toast';
 
 import getValidationErrors from '../utils/getValidationErros';
 
@@ -71,6 +72,7 @@ const Checkout: React.FC = () => {
 
   const { cart, totalPriceString, clearCart } = useCart();
   const { createPayer, payerData, clearPayer } = usePayer();
+  const { addToast } = useToast();
 
   const [loading, setLoading] = useState(false);
   const [breadcrumbActive, setBreadcrumbActive] = useState(2);
@@ -224,13 +226,20 @@ const Checkout: React.FC = () => {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro inesperado!',
+            description:
+              'Um erro inesperado aconteceu, tente novamente mais tarde.',
+          });
         }
 
         console.log(err);
         setLoading(false);
       }
     },
-    [cart, createPayer],
+    [cart, createPayer, addToast],
   );
 
   const handleGoToPayment = useCallback(async () => {
@@ -270,9 +279,17 @@ const Checkout: React.FC = () => {
       clearCart();
       clearPayer();
     } catch (err) {
+      setLoading(false);
+
+      addToast({
+        type: 'error',
+        title: 'Erro inesperado!',
+        description:
+          'Um erro inesperado aconteceu, tente novamente mais tarde.',
+      });
       console.log(err);
     }
-  }, [cart, payerData, clearCart, clearPayer]);
+  }, [cart, payerData, clearCart, clearPayer, addToast]);
 
   return (
     <>
@@ -369,7 +386,11 @@ const Checkout: React.FC = () => {
 
                 <OneArea>
                   <span>E-mail</span>
-                  <Input name="email" placeholder="Ex: joao@gmail.com" />
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Ex: joao@gmail.com"
+                  />
                 </OneArea>
 
                 <DoubleArea>
@@ -387,6 +408,7 @@ const Checkout: React.FC = () => {
                     <span>CPF</span>
                     <InputMask
                       name="cpf"
+                      type="tel"
                       mask="999.999.999-99"
                       placeholder="Ex: 999.999.999-99"
                     />
@@ -402,6 +424,7 @@ const Checkout: React.FC = () => {
                     <span>CEP</span>
                     <InputMask
                       name="zipCode"
+                      type="tel"
                       mask="99999-999"
                       placeholder="Ex: 99999-999"
                       getCep={getCep}

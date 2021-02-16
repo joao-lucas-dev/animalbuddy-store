@@ -21,6 +21,7 @@ import Review from '../../components/Review';
 
 import { useCart } from '../../context/cart';
 import { useFiles } from '../../context/files';
+import { useToast } from '../../context/toast';
 
 import getValidationErrors from '../../utils/getValidationErros';
 
@@ -152,6 +153,7 @@ const Product: React.FC<IProductProps> = ({
   const router = useRouter();
   const { addProductToCart } = useCart();
   const { clearUploaded, uploadedImages } = useFiles();
+  const { addToast } = useToast();
   const formRef = useRef<FormHandles>(null);
 
   const [qtd, setQtd] = useState(1);
@@ -256,7 +258,7 @@ const Product: React.FC<IProductProps> = ({
   const handleChangeModel = useCallback(
     (e) => {
       const findModel = product.variants.model.find(
-        (item) => item.name === e.target.value,
+        (item) => item.name === `${e.target.value} `,
       );
 
       setNewOldPriceString(findModel.oldPriceString);
@@ -316,6 +318,12 @@ const Product: React.FC<IProductProps> = ({
 
   const handleSubmit = useCallback(
     async (data: ReviewFormData, { reset }) => {
+      addToast({
+        type: 'success',
+        title: 'Review realizado!',
+        description: 'Após aprovação, será exibido na parte de reviews',
+      });
+      return;
       try {
         formRef.current?.setErrors({});
 
@@ -356,17 +364,28 @@ const Product: React.FC<IProductProps> = ({
         setStars(1);
         clearUploaded();
         setOpen(false);
+        addToast({
+          type: 'success',
+          title: 'Review realizado!',
+          description: 'Após aprovação, será exibido na parte de reviews',
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
-        }
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro ao realizar review!',
+            description: 'Por favor, tente mais tarde.',
+          });
 
-        console.log(err);
+          console.log(err);
+        }
       }
     },
-    [stars, product, clearUploaded, uploadedImages],
+    [stars, product, clearUploaded, uploadedImages, addToast],
   );
 
   return (
@@ -522,6 +541,7 @@ const Product: React.FC<IProductProps> = ({
                       <IoIosArrowForward />
                     </SelectArea>
                   </Variant>
+
                   {product.variants.size.length > 0 && (
                     <Variant>
                       <span>Tamanho</span>
@@ -539,11 +559,17 @@ const Product: React.FC<IProductProps> = ({
                   {product.variants.size.length === 0 && (
                     <Variant>
                       <span>Modelo</span>
-                      <select onChange={handleChangeModel}>
-                        {product.variants.model.map((model) => {
-                          return <option key={model.name}>{model.name}</option>;
-                        })}
-                      </select>
+
+                      <SelectArea>
+                        <select onChange={handleChangeModel}>
+                          {product.variants.model.map((model) => {
+                            return (
+                              <option key={model.name}>{model.name}</option>
+                            );
+                          })}
+                        </select>
+                        <IoIosArrowForward />
+                      </SelectArea>
                     </Variant>
                   )}
 

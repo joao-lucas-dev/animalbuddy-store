@@ -3,23 +3,17 @@ import { AppProps } from 'next/app';
 
 import Footer from '../components/Footer';
 
-import { CartProvider } from '../context/cart';
-import { FileProvider } from '../context/files';
-import { PayerProvider } from '../context/payer';
+import AppProvider from '../context';
 
 import GlobalStyle from '../styles/GlobalStyles';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <PayerProvider>
-      <CartProvider>
-        <FileProvider>
-          <GlobalStyle />
-          <Component {...pageProps} />
-          <Footer />
-        </FileProvider>
-      </CartProvider>
-    </PayerProvider>
+    <AppProvider>
+      <GlobalStyle />
+      <Component {...pageProps} />
+      <Footer />
+    </AppProvider>
   );
 };
 

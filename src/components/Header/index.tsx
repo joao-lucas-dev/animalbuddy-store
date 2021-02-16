@@ -73,8 +73,13 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/perguntas-frequentes" scroll>
-                  <a>Perguntas frequentes</a>
+                <Link href="/quem-somos" scroll>
+                  <a>Quem Somos</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/duvidas-frequentes" scroll>
+                  <a>Dúvidas frequentes</a>
                 </Link>
               </li>
               <li>
@@ -104,8 +109,13 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
             </Link>
           </li>
           <li>
-            <Link href="/perguntas-frequentes" scroll>
-              <a>Perguntas frequentes</a>
+            <Link href="/quem-somos" scroll>
+              <a>Quem Somos</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/duvidas-frequentes" scroll>
+              <a>Dúvidas frequentes</a>
             </Link>
           </li>
           <li>

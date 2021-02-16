@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 interface IMenuDropDown {
   openMenu: boolean;
@@ -17,7 +17,7 @@ export const HeaderTop = styled.div`
     font-weight: 500;
     line-height: 23px;
 
-    @media (max-width: 925px) {
+    @media (max-width: 1115px) {
       font-size: 18px;
     }
 
@@ -31,7 +31,7 @@ export const Container = styled.header`
   padding: 33px 35px;
   border-bottom: 1px solid #dddee2;
 
-  @media (max-width: 925px) {
+  @media (max-width: 1115px) {
     padding: 10px 20px;
   }
 
@@ -55,7 +55,7 @@ export const LeftSide = styled.div`
     align-items: center;
     margin-left: 26px;
 
-    @media (max-width: 925px) {
+    @media (max-width: 1115px) {
       display: none;
     }
 
@@ -86,7 +86,7 @@ export const Toggle = styled.div`
     opacity: 0.6;
   }
 
-  @media (max-width: 925px) {
+  @media (max-width: 1115px) {
     display: block;
   }
 `;
@@ -132,11 +132,25 @@ export const Cart = styled.div`
   }
 `;
 
+const growDown = keyframes`
+  0% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  100% {
+    transform: scaleY(1)
+  }
+`;
+
 export const MenuDropDown = styled.div<IMenuDropDown>`
   border-bottom: 1px solid #dddee2;
   display: ${(props) => (props.openMenu ? 'block' : 'none')};
+  animation: ${growDown} 300ms ease-in-out forwards;
+  transform-origin: top center;
 
-  @media (min-width: 925px) {
+  @media (min-width: 1115px) {
     display: none;
   }
 

@@ -216,7 +216,7 @@ export const Variant = styled.div`
 `;
 
 export const SelectArea = styled.div`
-  width: 140px;
+  width: 162px;
   height: 48px;
   background: #f4f4f4;
   border: none;
@@ -226,6 +226,10 @@ export const SelectArea = styled.div`
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
+
+  @media (max-width: 425px) {
+    width: 155px;
+  }
 
   select {
     position: absolute;

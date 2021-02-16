@@ -35,8 +35,13 @@ const FooterApp: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/perguntas-frequentes" scroll>
-                  <a>Perguntas Frequentes</a>
+                <Link href="/quem-somos" scroll>
+                  <a>Quem Somos</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/duvidas-frequentes" scroll>
+                  <a>Dúvidas Frequentes</a>
                 </Link>
               </li>
               <li>
@@ -66,7 +71,13 @@ const FooterApp: React.FC = () => {
 
             <ul>
               <li>
-                <a href="tel:81971112339">WhatsApp: (81) 97111-2339</a>
+                <a
+                  href="https://wa.me/5581971112339"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  (81) 97111-2339
+                </a>
               </li>
               <li>
                 <a href="mailto:contato@animalbuddy.com.br">
