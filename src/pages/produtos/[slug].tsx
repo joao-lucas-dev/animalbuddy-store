@@ -318,12 +318,6 @@ const Product: React.FC<IProductProps> = ({
 
   const handleSubmit = useCallback(
     async (data: ReviewFormData, { reset }) => {
-      addToast({
-        type: 'success',
-        title: 'Review realizado!',
-        description: 'Após aprovação, será exibido na parte de reviews',
-      });
-      return;
       try {
         formRef.current?.setErrors({});
 

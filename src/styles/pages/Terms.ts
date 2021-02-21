@@ -36,7 +36,7 @@ export const Container = styled.div`
 `;
 
 export const ImageArea = styled.div`
-  background-image: url('https://images.unsplash.com/photo-1444212477490-ca407925329e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80');
+  background-image: url('/banner_politica.png');
   background-position: center;
   background-size: auto;
   background-repeat: no-repeat;

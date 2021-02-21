@@ -36,7 +36,7 @@ export const Container = styled.div`
 `;
 
 export const ImageArea = styled.div`
-  background-image: url('https://images.unsplash.com/photo-1444212477490-ca407925329e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80');
+  background-image: url('/banner_faq.png');
   background-position: center;
   background-size: auto;
   background-repeat: no-repeat;
@@ -47,8 +47,8 @@ export const ImageArea = styled.div`
 export const Overflow = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
+  background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
 
@@ -56,6 +56,7 @@ export const Overflow = styled.div`
     font-size: 42px;
     color: #fff;
     text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   }
 `;
 

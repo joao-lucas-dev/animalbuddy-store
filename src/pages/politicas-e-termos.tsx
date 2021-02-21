@@ -36,7 +36,7 @@ const Terms: React.FC = () => {
 
           <p>
             O AnimalBuddy tem como compromisso central o respeito à sua
-            privacidade e segurança. Nesse sentido, leia com atenção as
+            privacidade e segurança. Nesse cenário, leia com atenção as
             informações a seguir, pois, ao navegar em nosso site, o visitante ou
             cliente concordará com os termos e condições previstos nesta
             Política de Privacidade e com todos os avisos a ela pertinentes.
@@ -174,8 +174,8 @@ const Terms: React.FC = () => {
             isso sua encomenda poderá percorrer muitos quilômetros até chegar ao
             seu destino. Porém não se preocupe. Segundo a Receita Federal,{' '}
             <strong>
-              o prazo médio estimado de entrega dos produtos transportados pelos
-              Correios é de 2 a 4 semanas
+              o tempo médio estimado de entrega dos produtos transportados pelos
+              Correios é de quarenta (40) dias úteis
             </strong>
             , podendo haver variações devido a possíveis problemas de greve da
             instituição encarregada pela entrega, além de outros fatores alheios

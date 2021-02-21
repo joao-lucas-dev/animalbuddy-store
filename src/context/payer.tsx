@@ -6,6 +6,8 @@ import React, {
   useEffect,
 } from 'react';
 
+import api from '../services';
+
 interface IPayer {
   name: string;
   surname: string;
@@ -33,17 +35,33 @@ const PayerContext = createContext<PayerContextData>({} as PayerContextData);
 const PayerProvider: React.FC = ({ children }) => {
   const [payerData, setPayerData] = useState({} as IPayer);
 
+  const getPayerInfo = useCallback(async (orderIdString) => {
+    try {
+      const response = await api.get(`/checkout/infos/${orderIdString}`);
+
+      setPayerData(response.data.payer);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   useEffect(() => {
     const payerStorage = localStorage.getItem('@AnimalBuddy:payer');
 
     if (payerStorage) {
-      setPayerData(JSON.parse(payerStorage));
+      const payerStorageFomatted = JSON.parse(payerStorage);
+
+      getPayerInfo(payerStorageFomatted.orderIdString);
     }
-  }, []);
+  }, [getPayerInfo]);
 
   const createPayer = useCallback((payer: IPayer) => {
     setPayerData(payer);
-    localStorage.setItem('@AnimalBuddy:payer', JSON.stringify(payer));
+
+    localStorage.setItem(
+      '@AnimalBuddy:payer',
+      JSON.stringify({ orderIdString: payer.orderIdString }),
+    );
   }, []);
 
   const clearPayer = useCallback(() => {

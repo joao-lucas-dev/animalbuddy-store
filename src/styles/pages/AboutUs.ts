@@ -21,7 +21,7 @@ export const Container = styled.div`
     line-height: 1.85;
 
     a {
-      color: #333;
+      color: #7239f2;
       font-weight: 600;
 
       &:hover {
@@ -36,7 +36,7 @@ export const Container = styled.div`
 `;
 
 export const ImageArea = styled.div`
-  background-image: url('https://images.unsplash.com/photo-1444212477490-ca407925329e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80');
+  background-image: url('/banner_quem_somos.png');
   background-position: center;
   background-size: auto;
   background-repeat: no-repeat;
@@ -55,5 +55,7 @@ export const Overflow = styled.div`
   h1 {
     font-size: 42px;
     color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
   }
 `;

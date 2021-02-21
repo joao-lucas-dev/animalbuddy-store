@@ -509,8 +509,9 @@ const Checkout: React.FC = () => {
               <AddressInfoArea>
                 <LeftSpan>Enviar para</LeftSpan>
                 <MidSpan>
-                  {payerData.street}, {payerData.number}, {payerData.complement}
-                  , {payerData.city}, {payerData.country} - {payerData.zipCode}
+                  {payerData.street}, {payerData.number}
+                  {payerData.complement && `, ${payerData.complement}`},{' '}
+                  {payerData.city}, {payerData.country} - {payerData.zipCode}
                 </MidSpan>
                 <RightButton onClick={() => setBreadcrumbActive(2)}>
                   Alterar

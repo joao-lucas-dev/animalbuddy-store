@@ -107,7 +107,7 @@ const FAQ: React.FC = () => {
           <h1>5. Quanto tempo demora para o meu produto chegar?</h1>
 
           <p>
-            O prazo varia de 2 a 4 semanas dependendo do fornecedor e da região
+            O prazo varia de 20 a 40 dias dependendo do fornecedor e da região
             do endereço de entrega.
           </p>
         </TopicArea>
