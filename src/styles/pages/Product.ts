@@ -331,6 +331,10 @@ export const DescriptionArea = styled.div`
   padding-top: 10px;
   border-top: 1px solid #eeeeee;
 
+  @media (max-width: 425px) {
+    padding: 10px 10px 0;
+  }
+
   h2 {
     font-size: 18px;
     font-weight: 500;
@@ -349,7 +353,9 @@ export const DescriptionArea = styled.div`
 export const Markdown = styled(ReactMarkdown)`
   font-size: 16px;
   color: #666;
-  font-weight: 500;
+  font-weight: normal;
+  text-align: justify;
+  line-height: 22px;
 `;
 
 export const ReviewCustomersArea = styled.div`
