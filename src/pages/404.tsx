@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import SEO from '../components/SEO';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import Footer from '../components/Footer';
 
 import { Container } from '../styles/pages/404';
 
@@ -28,6 +29,8 @@ const Error404: React.FC = () => {
           Voltar para Home
         </Button>
       </Container>
+
+      <Footer />
     </>
   );
 };

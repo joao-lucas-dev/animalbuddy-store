@@ -354,7 +354,6 @@ export const Markdown = styled(ReactMarkdown)`
   font-size: 16px;
   color: #666;
   font-weight: normal;
-  text-align: justify;
   line-height: 22px;
 `;
 

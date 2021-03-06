@@ -18,6 +18,7 @@ import Input from '../../components/Input';
 import Upload from '../../components/Upload';
 import FileList from '../../components/FileList';
 import Review from '../../components/Review';
+import Footer from '../../components/Footer';
 
 import { useCart } from '../../context/cart';
 import { useFiles } from '../../context/files';
@@ -730,6 +731,8 @@ const Product: React.FC<IProductProps> = ({
           </Container>
         </>
       )}
+
+      <Footer />
     </>
   );
 };

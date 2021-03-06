@@ -2,6 +2,7 @@ import React from 'react';
 
 import SEO from '../components/SEO';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 import { Container, ImageArea, Overflow } from '../styles/pages/AboutUs';
 
@@ -50,6 +51,8 @@ const AboutUs: React.FC = () => {
           conteúdo.
         </p>
       </Container>
+
+      <Footer />
     </>
   );
 };

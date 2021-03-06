@@ -21,6 +21,7 @@ import Header from '../components/Header';
 import CartItem from '../components/CartItem';
 import Input from '../components/Input';
 import InputMask from '../components/InputMask';
+import Footer from '../components/Footer';
 
 import {
   Container,
@@ -74,6 +75,7 @@ const Checkout: React.FC = () => {
   const { createPayer, payerData, clearPayer } = usePayer();
   const { addToast } = useToast();
 
+  const [showCheckout, setShowCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
   const [breadcrumbActive, setBreadcrumbActive] = useState(2);
   const [openCart, setOpenCart] = useState(false);
@@ -84,8 +86,10 @@ const Checkout: React.FC = () => {
     const payerStorage = JSON.parse(localStorage.getItem('@AnimalBuddy:payer'));
 
     if (cartStorage && payerStorage) {
+      setShowCheckout(true);
       setBreadcrumbActive(3);
     } else if (cartStorage) {
+      setShowCheckout(true);
       setBreadcrumbActive(2);
     } else {
       router.push('/carrinho');
@@ -290,6 +294,10 @@ const Checkout: React.FC = () => {
       console.log(err);
     }
   }, [cart, payerData, clearCart, clearPayer, addToast]);
+
+  if (!showCheckout) {
+    return <></>;
+  }
 
   return (
     <>
@@ -553,6 +561,8 @@ const Checkout: React.FC = () => {
           </>
         )}
       </Container>
+
+      <Footer />
     </>
   );
 };
