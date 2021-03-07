@@ -10,6 +10,8 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import * as fbq from '../../lib/fpixel';
+
 import SEO from '../../components/SEO';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
@@ -287,6 +289,7 @@ const Product: React.FC<IProductProps> = ({
     };
 
     addProductToCart(newProduct);
+    fbq.event('track', 'AddToCart');
     router.push('/carrinho');
   }, [
     product,

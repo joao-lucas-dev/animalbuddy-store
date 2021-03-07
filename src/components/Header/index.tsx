@@ -87,6 +87,11 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
                   <a>Políticas e termos</a>
                 </Link>
               </li>
+              <li>
+                <Link href="/fale-conosco" scroll>
+                  <a>Fale Conosco</a>
+                </Link>
+              </li>
             </ul>
           </LeftSide>
 
@@ -121,6 +126,11 @@ const Header: React.FC<IHeader> = ({ closeMenu }) => {
           <li>
             <Link href="/politicas-e-termos" scroll>
               <a>Políticas e termos</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/fale-conosco" scroll>
+              <a>Fale Conosco</a>
             </Link>
           </li>
         </ul>

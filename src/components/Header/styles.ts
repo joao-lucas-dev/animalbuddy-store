@@ -31,7 +31,7 @@ export const Container = styled.header`
   padding: 33px 35px;
   border-bottom: 1px solid #dddee2;
 
-  @media (max-width: 1115px) {
+  @media (max-width: 1255px) {
     padding: 10px 20px;
   }
 
@@ -55,7 +55,7 @@ export const LeftSide = styled.div`
     align-items: center;
     margin-left: 26px;
 
-    @media (max-width: 1115px) {
+    @media (max-width: 1255px) {
       display: none;
     }
 
@@ -86,7 +86,7 @@ export const Toggle = styled.div`
     opacity: 0.6;
   }
 
-  @media (max-width: 1115px) {
+  @media (max-width: 1255px) {
     display: block;
   }
 `;
@@ -150,7 +150,7 @@ export const MenuDropDown = styled.div<IMenuDropDown>`
   animation: ${growDown} 300ms ease-in-out forwards;
   transform-origin: top center;
 
-  @media (min-width: 1115px) {
+  @media (min-width: 1255px) {
     display: none;
   }
 
