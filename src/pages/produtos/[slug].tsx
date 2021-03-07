@@ -289,7 +289,7 @@ const Product: React.FC<IProductProps> = ({
     };
 
     addProductToCart(newProduct);
-    fbq.event('track', 'AddToCart');
+    fbq.event('AddToCart');
     router.push('/carrinho');
   }, [
     product,

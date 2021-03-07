@@ -23,7 +23,7 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage }) => {
     if (!showPage) {
       router.push('/');
     } else {
-      fbq.event('track', 'Purchase', { value: 200.0, currency: 'BRL' });
+      fbq.event('Purchase', { value: 200.0, currency: 'BRL' });
     }
   }, [router, showPage]);
 

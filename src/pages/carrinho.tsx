@@ -142,7 +142,7 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
             <ButtonFinally
               miniWidth
               onClick={() => {
-                fbq.event('track', 'InitiateCheckout');
+                fbq.event('InitiateCheckout');
                 router.push('/checkout');
               }}
             >
