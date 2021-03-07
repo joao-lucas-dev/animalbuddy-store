@@ -28,7 +28,7 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage }) => {
   }, [router, showPage]);
 
   if (!showPage) {
-    return <></>;
+    return <div />;
   }
 
   return (
