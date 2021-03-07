@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 
+import * as fbq from '../lib/fpixel';
+
 import { useCart } from '../context/cart';
 import { usePayer } from '../context/payer';
 
@@ -140,6 +142,7 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
             <ButtonFinally
               miniWidth
               onClick={() => {
+                fbq.event('InitiateCheckout');
                 router.push('/checkout');
               }}
             >
