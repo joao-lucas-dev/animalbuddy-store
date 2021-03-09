@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-import { Container, ImageArea, Overflow } from '../styles/pages/AboutUs';
+import { Container, ImageArea, Overflow } from '../styles/pages/TalkToUs';
 
 const AboutUs: React.FC = () => {
   return (

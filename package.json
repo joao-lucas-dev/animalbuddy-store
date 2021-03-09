@@ -8,7 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@uiw/react-md-editor": "^2.1.8",
     "@unform/core": "^2.1.5",
     "@unform/web": "^2.1.5",
     "axios": "^0.21.1",

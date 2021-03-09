@@ -157,6 +157,8 @@ const Product: React.FC<IProductProps> = ({
   const { addProductToCart } = useCart();
   const { clearUploaded, uploadedImages } = useFiles();
   const { addToast } = useToast();
+
+  const reviewsRef = useRef(null);
   const formRef = useRef<FormHandles>(null);
 
   const [qtd, setQtd] = useState(1);
@@ -174,6 +176,8 @@ const Product: React.FC<IProductProps> = ({
   const [page, setPage] = useState(0);
   const [hideSeeMore, setHideSeeMore] = useState(false);
   const [stars, setStars] = useState(1);
+  const [activeStar, setActiveStar] = useState(5);
+  const [loadByRange, setLoadByRange] = useState(false);
 
   useEffect(() => {
     router.prefetch('/carrinho');
@@ -301,13 +305,40 @@ const Product: React.FC<IProductProps> = ({
     router,
   ]);
 
+  const handleLoadReviewsByStars = useCallback(
+    async (starsNumber: number) => {
+      try {
+        const response = await api.get(
+          `/store/products/${product._id}/reviews/stars/${starsNumber}?page=0&limit=5`,
+        );
+
+        setNewReviews(response.data.reviews);
+        setActiveStar(starsNumber);
+        setHideSeeMore(false);
+        setPage(0);
+        setLoadByRange(true);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [product],
+  );
+
   const handleChangePage = useCallback(async () => {
     try {
       const newPage = page + 1;
 
-      const response = await api.get(
-        `/store/products/${product._id}/reviews?page=${newPage}&limit=5`,
-      );
+      let response = {} as any;
+
+      if (!loadByRange) {
+        response = await api.get(
+          `/store/products/${product._id}/reviews?page=${newPage}&limit=5`,
+        );
+      } else {
+        response = await api.get(
+          `/store/products/${product._id}/reviews/stars/${activeStar}?page=${newPage}&limit=5`,
+        );
+      }
 
       if (response.data.reviews.length === 0) {
         setHideSeeMore(true);
@@ -318,7 +349,7 @@ const Product: React.FC<IProductProps> = ({
     } catch (err) {
       console.log(err);
     }
-  }, [page, product]);
+  }, [page, product, activeStar, loadByRange]);
 
   const handleSubmit = useCallback(
     async (data: ReviewFormData, { reset }) => {
@@ -490,7 +521,13 @@ const Product: React.FC<IProductProps> = ({
                   <h1>{product.title}</h1>
                 </TitleArea>
 
-                <ReviewArea>
+                <ReviewArea
+                  onClick={() => {
+                    reviewsRef.current.scrollIntoView({
+                      behavior: 'smooth',
+                    });
+                  }}
+                >
                   <BeautyStars
                     value={product.averageReviews}
                     gap="4px"
@@ -618,7 +655,7 @@ const Product: React.FC<IProductProps> = ({
               </RightSide>
             </Content>
 
-            <ReviewCustomersArea>
+            <ReviewCustomersArea ref={reviewsRef}>
               <AssessmentsArea>
                 <h4>Avaliações</h4>
 
@@ -638,34 +675,59 @@ const Product: React.FC<IProductProps> = ({
                     <Graph>
                       <ul>
                         <li>
-                          5
-                          <GraphOne>
-                            <GraphTwo porcentage={rangeParcentage.five} />
-                          </GraphOne>
+                          <button
+                            type="button"
+                            onClick={() => handleLoadReviewsByStars(5)}
+                          >
+                            5
+                            <GraphOne>
+                              <GraphTwo porcentage={rangeParcentage.five} />
+                            </GraphOne>
+                          </button>
                         </li>
                         <li>
-                          4
-                          <GraphOne>
-                            <GraphTwo porcentage={rangeParcentage.four} />
-                          </GraphOne>
+                          <button
+                            type="button"
+                            onClick={() => handleLoadReviewsByStars(4)}
+                          >
+                            4
+                            <GraphOne>
+                              <GraphTwo porcentage={rangeParcentage.four} />
+                            </GraphOne>
+                          </button>
                         </li>
                         <li>
-                          3
-                          <GraphOne>
-                            <GraphTwo porcentage={rangeParcentage.three} />
-                          </GraphOne>
+                          <button
+                            type="button"
+                            onClick={() => handleLoadReviewsByStars(3)}
+                          >
+                            3
+                            <GraphOne>
+                              <GraphTwo porcentage={rangeParcentage.three} />
+                            </GraphOne>
+                          </button>
                         </li>
                         <li>
-                          2
-                          <GraphOne>
-                            <GraphTwo porcentage={rangeParcentage.two} />
-                          </GraphOne>
+                          <button
+                            type="button"
+                            onClick={() => handleLoadReviewsByStars(2)}
+                          >
+                            2
+                            <GraphOne>
+                              <GraphTwo porcentage={rangeParcentage.two} />
+                            </GraphOne>
+                          </button>
                         </li>
                         <li>
-                          1
-                          <GraphOne>
-                            <GraphTwo porcentage={rangeParcentage.one} />
-                          </GraphOne>
+                          <button
+                            type="button"
+                            onClick={() => handleLoadReviewsByStars(1)}
+                          >
+                            1
+                            <GraphOne>
+                              <GraphTwo porcentage={rangeParcentage.one} />
+                            </GraphOne>
+                          </button>
                         </li>
                       </ul>
                     </Graph>
@@ -726,7 +788,7 @@ const Product: React.FC<IProductProps> = ({
               })}
 
               {!hideSeeMore && reviews.length > 0 && (
-                <Button halfWidth onClick={handleChangePage}>
+                <Button halfWidth onClick={() => handleChangePage()}>
                   Ver mais
                 </Button>
               )}
@@ -765,12 +827,15 @@ export const getStaticProps: GetStaticProps<IProductProps> = async (
   const responseReviews = await api.get(
     `/store/products/${response.data._id}/reviews?page=0&limit=5`,
   );
+  const responseReviewsRanges = await api.get(
+    `/store/products/${response.data._id}/reviews/ranges`,
+  );
 
   return {
     props: {
       product: response.data,
       reviews: responseReviews.data.reviews,
-      rangeParcentage: responseReviews.data.rangeParcentage,
+      rangeParcentage: responseReviewsRanges.data.rangeParcentage,
     },
     revalidate: 120,
   };

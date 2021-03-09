@@ -133,12 +133,17 @@ export const ReviewArea = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-top: 18px;
+  transition: all 0.2s linear;
 
   span {
     font-size: 14px;
     color: #000;
     font-weight: 500;
     margin-left: 5px;
+  }
+
+  &:hover {
+    opacity: 0.5;
   }
 `;
 
@@ -331,10 +336,6 @@ export const DescriptionArea = styled.div`
   padding-top: 10px;
   border-top: 1px solid #eeeeee;
 
-  @media (max-width: 425px) {
-    padding: 10px 10px 0;
-  }
-
   h2 {
     font-size: 18px;
     font-weight: 500;
@@ -355,6 +356,21 @@ export const Markdown = styled(ReactMarkdown)`
   color: #666;
   font-weight: normal;
   line-height: 22px;
+
+  ul {
+    margin-bottom: 20px;
+  }
+
+  li {
+    padding-left: 30px;
+    margin-bottom: 5px;
+
+    &::before {
+      content: '•';
+      margin-right: 10px;
+      width: 5px;
+    }
+  }
 `;
 
 export const ReviewCustomersArea = styled.div`
@@ -435,11 +451,22 @@ export const Graph = styled.div`
 
   ul {
     li {
-      display: flex;
-      align-items: center;
-      padding: 1px 0;
-      font-size: 16px;
-      font-weight: 500;
+      padding: 3px 0;
+      cursor: pointer;
+      transition: all 0.2s linear;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border: 0;
+        font-size: 16px;
+        font-weight: 500;
+      }
     }
   }
 `;

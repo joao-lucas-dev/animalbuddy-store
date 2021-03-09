@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import * as fbq from '../lib/fpixel';
+
+import api from '../services';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,10 +14,25 @@ import { Container, ImageArea, Overflow } from '../styles/pages/ThanksPage';
 
 interface IThanksPage {
   showPage: boolean;
+  orderId: string | string[];
 }
 
-const ThanksPage: NextPage<IThanksPage> = ({ showPage }) => {
+const ThanksPage: NextPage<IThanksPage> = ({ showPage, orderId }) => {
   const router = useRouter();
+
+  const loadTotalPrice = useCallback(async () => {
+    try {
+      const response = await api.get(`/checkout/order/${orderId}/totalprice`);
+
+      console.log(response.data);
+      fbq.event('Purchase', {
+        value: response.data.totalPrice,
+        currency: 'BRL',
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [orderId]);
 
   useEffect(() => {
     router.prefetch('/');
@@ -23,9 +40,9 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage }) => {
     if (!showPage) {
       router.push('/');
     } else {
-      fbq.event('Purchase', { value: 120.0, currency: 'BRL' });
+      loadTotalPrice();
     }
-  }, [router, showPage]);
+  }, [router, showPage, loadTotalPrice]);
 
   if (!showPage) {
     return <div />;
@@ -72,10 +89,11 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage }) => {
 };
 
 ThanksPage.getInitialProps = async ({ query }) => {
-  const { collection_status } = query;
+  const { collection_status, external_reference } = query;
 
   return {
     showPage: collection_status === 'approved',
+    orderId: external_reference,
   };
 };
 
