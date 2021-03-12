@@ -134,6 +134,7 @@ export const ReviewArea = styled.div`
   align-items: center;
   margin-top: 18px;
   transition: all 0.2s linear;
+  cursor: pointer;
 
   span {
     font-size: 14px;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import BeautyStars from 'beauty-stars';
+
+import StarsRating from '../StarsRating';
 
 import {
   Container,
@@ -48,13 +49,7 @@ const Product: React.FC<IProductData> = ({ item }) => {
           <h3>{item.title}</h3>
 
           <ReviewArea>
-            <BeautyStars
-              value={item.averageReviews}
-              gap="2px"
-              activeColor="#FFB900"
-              inactiveColor="#fce4a1"
-              size="10px"
-            />
+            <StarsRating value={item.averageReviews} />
 
             <span>({item.reviewsCount})</span>
           </ReviewArea>

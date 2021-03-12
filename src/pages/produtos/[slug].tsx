@@ -15,6 +15,7 @@ import * as fbq from '../../lib/fpixel';
 import SEO from '../../components/SEO';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
+import StarsRating from '../../components/StarsRating';
 import ImageSlider from '../../components/ImageSlider';
 import Input from '../../components/Input';
 import Upload from '../../components/Upload';
@@ -528,13 +529,7 @@ const Product: React.FC<IProductProps> = ({
                     });
                   }}
                 >
-                  <BeautyStars
-                    value={product.averageReviews}
-                    gap="4px"
-                    activeColor="#FFB900"
-                    inactiveColor="#fce4a1"
-                    size="18px"
-                  />
+                  <StarsRating value={product.averageReviews} productPage />
 
                   <span>({product.reviewsCount})</span>
                 </ReviewArea>
