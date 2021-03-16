@@ -24,7 +24,6 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage, orderId }) => {
     try {
       const response = await api.get(`/checkout/order/${orderId}/totalprice`);
 
-      console.log(response.data);
       fbq.event('Purchase', {
         value: response.data.totalPrice,
         currency: 'BRL',
@@ -92,7 +91,8 @@ ThanksPage.getInitialProps = async ({ query }) => {
   const { collection_status, external_reference } = query;
 
   return {
-    showPage: collection_status === 'approved',
+    showPage:
+      collection_status === 'approved' || collection_status === 'pending',
     orderId: external_reference,
   };
 };
