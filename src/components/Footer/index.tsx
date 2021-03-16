@@ -49,12 +49,21 @@ const FooterApp: React.FC = () => {
                   <a>Políticas e Termos</a>
                 </Link>
               </li>
+              <li>
+                <Link href="/fale-conosco" scroll>
+                  <a>Fale Conosco</a>
+                </Link>
+              </li>
             </ul>
 
             <span>SIGA-NOS</span>
 
             <RedesSociais>
-              <a href="">
+              <a
+                href="https://www.facebook.com/animalbuddyoficial"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <AiOutlineFacebook size={30} color="#7239f2" />
               </a>
               <a
@@ -76,7 +85,7 @@ const FooterApp: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  (81) 97111-2339
+                  WhatsApp: (81) 97111-2339
                 </a>
               </li>
               <li>

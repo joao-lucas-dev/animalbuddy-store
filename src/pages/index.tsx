@@ -53,7 +53,7 @@ const Home: React.FC<IHome> = ({ products }) => {
   return (
     <>
       <SEO
-        title="AnimalBuddy - O Petshop Perfeito Para Seu Pet!"
+        title="AnimalBuddy - A melhor loja online para o seu pet!"
         image="logo_seo.png"
         description="Na AnimalBuddy você encontra todos os produtos para seu PET em um só lugar. Venha conferir!"
         shouldExcludeTitleSufiix

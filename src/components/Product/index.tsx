@@ -49,7 +49,7 @@ const Product: React.FC<IProductData> = ({ item }) => {
           <h3>{item.title}</h3>
 
           <ReviewArea>
-            <StarsRating value={item.averageReviews} />
+            <StarsRating value={item.averageReviews || 0} />
 
             <span>({item.reviewsCount})</span>
           </ReviewArea>

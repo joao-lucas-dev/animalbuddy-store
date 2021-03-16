@@ -19,6 +19,7 @@ import {
   SelectArea,
   ProductsContent,
   SeeMoreArea,
+  LoadingArea,
 } from '../styles/pages/Products';
 
 interface IProduct {
@@ -46,9 +47,11 @@ const Products: React.FC<IProducts> = ({ products }) => {
   const [orderType, setOrderType] = useState('recentDate');
   const [newProducts, setNewProducts] = useState(products);
   const [hideSeeMore, setHideSeeMore] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChangeOrder = useCallback(async (e) => {
     try {
+      setLoading(true);
       const { value } = e.target;
 
       const response = await api.get(
@@ -58,8 +61,10 @@ const Products: React.FC<IProducts> = ({ products }) => {
       setNewProducts(response.data);
       setOrderType(value);
       setHideSeeMore(false);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   }, []);
 
@@ -115,17 +120,26 @@ const Products: React.FC<IProducts> = ({ products }) => {
             </OrderArea>
           </TopProductsArea>
 
-          <ProductsContent>
-            {newProducts.map((item: IProduct) => {
-              return <Product key={item._id} item={item} />;
-            })}
-          </ProductsContent>
-          {!hideSeeMore && (
-            <SeeMoreArea>
-              <button type="button" onClick={handleChangePage}>
-                Ver mais
-              </button>
-            </SeeMoreArea>
+          {loading ? (
+            <LoadingArea>
+              <h1>Carregando...</h1>
+            </LoadingArea>
+          ) : (
+            <>
+              <ProductsContent>
+                {newProducts.map((item: IProduct) => {
+                  return <Product key={item._id} item={item} />;
+                })}
+              </ProductsContent>
+
+              {!hideSeeMore && (
+                <SeeMoreArea>
+                  <button type="button" onClick={handleChangePage}>
+                    Ver mais
+                  </button>
+                </SeeMoreArea>
+              )}
+            </>
           )}
         </ProductsArea>
       </Container>

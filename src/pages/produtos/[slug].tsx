@@ -76,6 +76,7 @@ import {
   FormArea,
   ImageArea,
   ReviewList,
+  LoadingArea,
 } from '../../styles/pages/Product';
 
 interface IImagesArray {
@@ -179,6 +180,8 @@ const Product: React.FC<IProductProps> = ({
   const [stars, setStars] = useState(1);
   const [activeStar, setActiveStar] = useState(5);
   const [loadByRange, setLoadByRange] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [countReviews, setCountReviews] = useState(5);
 
   useEffect(() => {
     router.prefetch('/carrinho');
@@ -308,6 +311,7 @@ const Product: React.FC<IProductProps> = ({
 
   const handleLoadReviewsByStars = useCallback(
     async (starsNumber: number) => {
+      setLoading(true);
       try {
         const response = await api.get(
           `/store/products/${product._id}/reviews/stars/${starsNumber}?page=0&limit=5`,
@@ -318,8 +322,10 @@ const Product: React.FC<IProductProps> = ({
         setHideSeeMore(false);
         setPage(0);
         setLoadByRange(true);
+        setLoading(false);
       } catch (err) {
         console.log(err);
+        setLoading(false);
       }
     },
     [product],
@@ -346,6 +352,7 @@ const Product: React.FC<IProductProps> = ({
       } else {
         setNewReviews((state) => state.concat(...response.data.reviews));
         setPage(newPage);
+        setCountReviews((state) => state + 5);
       }
     } catch (err) {
       console.log(err);
@@ -529,7 +536,10 @@ const Product: React.FC<IProductProps> = ({
                     });
                   }}
                 >
-                  <StarsRating value={product.averageReviews} productPage />
+                  <StarsRating
+                    value={product.averageReviews || 0}
+                    productPage
+                  />
 
                   <span>({product.reviewsCount})</span>
                 </ReviewArea>
@@ -777,17 +787,25 @@ const Product: React.FC<IProductProps> = ({
               </FormArea>
             )}
 
-            <ReviewList>
-              {newReviews.map((item) => {
-                return <Review key={item._id} item={item} />;
-              })}
+            {loading ? (
+              <LoadingArea>
+                <h1>Carregando...</h1>
+              </LoadingArea>
+            ) : (
+              <>
+                <ReviewList>
+                  {newReviews.map((item) => {
+                    return <Review key={item._id} item={item} />;
+                  })}
 
-              {!hideSeeMore && reviews.length > 0 && (
-                <Button halfWidth onClick={() => handleChangePage()}>
-                  Ver mais
-                </Button>
-              )}
-            </ReviewList>
+                  {!hideSeeMore && newReviews.length === countReviews && (
+                    <Button halfWidth onClick={() => handleChangePage()}>
+                      Ver mais
+                    </Button>
+                  )}
+                </ReviewList>
+              </>
+            )}
           </Container>
         </>
       )}

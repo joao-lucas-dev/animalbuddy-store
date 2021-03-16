@@ -561,3 +561,16 @@ export const ReviewList = styled.div`
     margin-top: 20px;
   }
 `;
+
+export const LoadingArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+
+  h1 {
+    font-size: 28px;
+    color: #333;
+    font-weight: 600;
+  }
+`;
