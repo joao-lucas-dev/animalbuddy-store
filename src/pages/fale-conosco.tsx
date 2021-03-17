@@ -24,7 +24,7 @@ const AboutUs: React.FC = () => {
         </ImageArea>
 
         <p>
-          Para poder entrar em contato conosco, basta escolhe uma das opções
+          Para poder entrar em contato conosco, basta escolher uma das opções
           abaixo:
         </p>
 
