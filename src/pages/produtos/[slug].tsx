@@ -185,15 +185,7 @@ const Product: React.FC<IProductProps> = ({
   const [loadByRange, setLoadByRange] = useState(false);
   const [loading, setLoading] = useState(false);
   const [countReviews, setCountReviews] = useState(5);
-  const [installment, setInstallment] = useState(() => {
-    const installmentValue =
-      ((product.price * 19.79) / 100 + product.price) / 12;
-
-    return installmentValue.toLocaleString('pt-br', {
-      style: 'currency',
-      currency: 'BRL',
-    });
-  });
+  const [installment, setInstallment] = useState('');
 
   useEffect(() => {
     router.prefetch('/carrinho');
@@ -231,6 +223,18 @@ const Product: React.FC<IProductProps> = ({
 
     if (reviews) {
       setNewReviews(reviews);
+    }
+
+    if (product.price) {
+      const installmentValue =
+        ((product.price * 19.79) / 100 + product.price) / 12;
+
+      setInstallment(
+        installmentValue.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+      );
     }
   }, [product, reviews]);
 
