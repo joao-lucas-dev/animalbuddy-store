@@ -7,6 +7,7 @@ import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import Header from '../components/Header';
 import Product from '../components/Product';
 import SEO from '../components/SEO';
+import FAB from '../components/FAB';
 import Footer from '../components/Footer';
 
 import api from '../services';
@@ -161,6 +162,7 @@ const Home: React.FC<IHome> = ({ products }) => {
         </OfferArea>
       </Container>
 
+      <FAB />
       <Footer />
     </>
   );

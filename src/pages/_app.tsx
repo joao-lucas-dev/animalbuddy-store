@@ -3,7 +3,6 @@ import { AppProps } from 'next/app';
 
 import FacebookPixel from '../components/FacebookPixel';
 import AppProvider from '../context';
-import FAB from '../components/FAB';
 
 import GlobalStyle from '../styles/GlobalStyles';
 
@@ -13,7 +12,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <AppProvider>
         <GlobalStyle />
         <Component {...pageProps} />
-        <FAB />
       </AppProvider>
     </FacebookPixel>
   );

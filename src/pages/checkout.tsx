@@ -22,6 +22,7 @@ import CartItem from '../components/CartItem';
 import Input from '../components/Input';
 import InputMask from '../components/InputMask';
 import Footer from '../components/Footer';
+import FAB from '../components/FAB';
 
 import {
   Container,
@@ -562,6 +563,7 @@ const Checkout: React.FC = () => {
         )}
       </Container>
 
+      <FAB />
       <Footer />
     </>
   );

@@ -6,6 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import Header from '../components/Header';
 import Product from '../components/Product';
 import SEO from '../components/SEO';
+import FAB from '../components/FAB';
 import Footer from '../components/Footer';
 
 import api from '../services';
@@ -261,6 +262,7 @@ const Products: React.FC<IProducts> = ({ products }) => {
         </ModalOrder>
       )}
 
+      <FAB />
       <Footer />
     </>
   );

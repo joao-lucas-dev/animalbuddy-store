@@ -2,6 +2,7 @@ import React from 'react';
 
 import SEO from '../components/SEO';
 import Header from '../components/Header';
+import FAB from '../components/FAB';
 import Footer from '../components/Footer';
 
 import { Container, ImageArea, Overflow, TopicArea } from '../styles/pages/FAQ';
@@ -128,6 +129,7 @@ const FAQ: React.FC = () => {
         </TopicArea>
       </Container>
 
+      <FAB />
       <Footer />
     </>
   );

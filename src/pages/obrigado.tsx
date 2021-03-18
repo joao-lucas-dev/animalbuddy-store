@@ -8,6 +8,7 @@ import * as fbq from '../lib/fpixel';
 import api from '../services';
 
 import Header from '../components/Header';
+import FAB from '../components/FAB';
 import Footer from '../components/Footer';
 
 import { Container, ImageArea, Overflow } from '../styles/pages/ThanksPage';
@@ -82,6 +83,7 @@ const ThanksPage: NextPage<IThanksPage> = ({ showPage, orderId }) => {
         </p>
       </Container>
 
+      <FAB />
       <Footer />
     </>
   );

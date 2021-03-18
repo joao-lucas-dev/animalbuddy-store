@@ -11,6 +11,7 @@ import SEO from '../components/SEO';
 import Header from '../components/Header';
 import CartItem from '../components/CartItem';
 import Footer from '../components/Footer';
+import FAB from '../components/FAB';
 
 import {
   EmptyCartArea,
@@ -151,6 +152,8 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
           </FinallyArea>
         </Container>
       )}
+
+      <FAB />
 
       <Footer />
     </>

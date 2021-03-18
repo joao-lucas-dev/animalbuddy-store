@@ -3,18 +3,30 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 import { Container } from './styles';
 
-const FAB: React.FC = () => {
+interface IFAB {
+  isProduct?: boolean;
+}
+
+const FAB: React.FC<IFAB> = ({ isProduct = false }) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
     const { href } = window.location;
 
-    const newText = window.encodeURIComponent(
-      `${href} \n\n Olá, estou interessado(a) neste produto e tenho algumas dúvidas. Você pode me ajudar?`,
-    );
+    let newText = '';
+
+    if (isProduct) {
+      newText = window.encodeURIComponent(
+        `${href} \n\n Olá, estou interessado(a) neste produto e tenho algumas dúvidas. Você pode me ajudar?`,
+      );
+    } else {
+      newText = window.encodeURIComponent(
+        'Olá, tenho algumas dúvidas. Você pode me ajudar?',
+      );
+    }
 
     setText(newText);
-  }, []);
+  }, [isProduct]);
 
   return (
     <Container>

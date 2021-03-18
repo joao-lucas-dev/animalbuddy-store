@@ -2,6 +2,7 @@ import React from 'react';
 
 import SEO from '../components/SEO';
 import Header from '../components/Header';
+import FAB from '../components/FAB';
 import Footer from '../components/Footer';
 
 import {
@@ -357,6 +358,7 @@ const Terms: React.FC = () => {
         </TopicArea>
       </Container>
 
+      <FAB />
       <Footer />
     </>
   );

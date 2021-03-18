@@ -21,6 +21,7 @@ import Input from '../../components/Input';
 import Upload from '../../components/Upload';
 import FileList from '../../components/FileList';
 import Review from '../../components/Review';
+import FAB from '../../components/FAB';
 import Footer from '../../components/Footer';
 
 import { useCart } from '../../context/cart';
@@ -810,6 +811,7 @@ const Product: React.FC<IProductProps> = ({
         </>
       )}
 
+      <FAB isProduct />
       <Footer />
     </>
   );
