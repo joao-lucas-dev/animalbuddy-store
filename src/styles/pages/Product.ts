@@ -574,3 +574,13 @@ export const LoadingArea = styled.div`
     font-weight: 600;
   }
 `;
+
+export const InstallmentArea = styled.div`
+  margin: 5px 0 10px;
+
+  span {
+    font-size: 18px;
+    color: #444;
+    font-weight: 500;
+  }
+`;

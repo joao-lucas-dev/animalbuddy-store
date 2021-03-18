@@ -138,7 +138,7 @@ export const TotalArea = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
   margin-top: 20px;
 
@@ -150,6 +150,23 @@ export const TotalArea = styled.div`
     @media (max-width: 425px) {
       font-size: 18px;
     }
+  }
+`;
+
+export const RightSide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const Installment = styled.span`
+  font-size: 18px !important;
+  font-weight: normal !important;
+  display: block;
+  margin-top: 5px;
+
+  @media (max-width: 425px) {
+    font-size: 15px !important;
   }
 `;
 

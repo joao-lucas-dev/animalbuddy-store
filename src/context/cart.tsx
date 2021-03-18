@@ -23,6 +23,7 @@ interface IProduct {
 interface CartContextData {
   cart: IProduct[];
   totalPriceString: string;
+  installmentPrice: string;
   addProductToCart(product: IProduct): void;
   removeProductFromCart(product: IProduct): void;
   updateQtdProduct(product: IProduct, qtd: number): void;
@@ -34,6 +35,7 @@ const CartContext = createContext<CartContextData>({} as CartContextData);
 const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<IProduct[]>([]);
   const [totalPriceString, setTotalPriceString] = useState('');
+  const [installmentPrice, setInstallmentPrice] = useState('');
 
   useEffect(() => {
     const cartStorage = localStorage.getItem('@AnimalBuddy:cart');
@@ -48,8 +50,16 @@ const CartProvider: React.FC = ({ children }) => {
       return acc + item.price * item.qtd;
     }, 0);
 
+    const installmentValue = ((totalPrice * 19.79) / 100 + totalPrice) / 12;
+
     setTotalPriceString(
       totalPrice.toLocaleString('pt-br', {
+        style: 'currency',
+        currency: 'BRL',
+      }),
+    );
+    setInstallmentPrice(
+      installmentValue.toLocaleString('pt-br', {
         style: 'currency',
         currency: 'BRL',
       }),
@@ -75,8 +85,16 @@ const CartProvider: React.FC = ({ children }) => {
           return acc + item.price * item.qtd;
         }, 0);
 
+        const installmentValue = ((totalPrice * 19.79) / 100 + totalPrice) / 12;
+
         setTotalPriceString(
           totalPrice.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          }),
+        );
+        setInstallmentPrice(
+          installmentValue.toLocaleString('pt-br', {
             style: 'currency',
             currency: 'BRL',
           }),
@@ -128,8 +146,16 @@ const CartProvider: React.FC = ({ children }) => {
           return acc + item.price * item.qtd;
         }, 0);
 
+        const installmentValue = ((totalPrice * 19.79) / 100 + totalPrice) / 12;
+
         setTotalPriceString(
           totalPrice.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          }),
+        );
+        setInstallmentPrice(
+          installmentValue.toLocaleString('pt-br', {
             style: 'currency',
             currency: 'BRL',
           }),
@@ -148,6 +174,7 @@ const CartProvider: React.FC = ({ children }) => {
         removeProductFromCart,
         updateQtdProduct,
         clearCart,
+        installmentPrice,
       }}
     >
       {children}

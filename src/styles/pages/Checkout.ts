@@ -62,12 +62,17 @@ export const ResumeCartArea = styled.div`
 
 export const ButtonCart = styled.button`
   display: flex;
+
   align-items: center;
   justify-content: space-between;
   border: 1px solid #eee;
   background: transparent;
   width: 100%;
   padding: 18px;
+
+  @media (max-width: 578px) {
+    flex-direction: column;
+  }
 `;
 
 export const LeftSide = styled.div<ILeftSide>`
@@ -94,7 +99,13 @@ export const LeftSide = styled.div<ILeftSide>`
 
 export const RightSide = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media (max-width: 578px) {
+    align-items: center;
+    margin-top: 10px;
+  }
 
   span {
     display: flex;
@@ -102,10 +113,20 @@ export const RightSide = styled.div`
     margin-left: 15px;
     font-size: 20px;
     color: #333;
+    font-weight: 500;
 
     @media (max-width: 425px) {
-      font-size: 14px;
+      font-size: 16px;
     }
+  }
+`;
+
+export const Installment = styled.span`
+  font-size: 16px !important;
+  font-weight: normal !important;
+
+  @media (max-width: 425px) {
+    font-size: 14px !important;
   }
 `;
 

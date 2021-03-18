@@ -50,6 +50,7 @@ import {
   AddressInfoArea,
   FreteInfoArea,
   PaymentArea,
+  Installment,
 } from '../styles/pages/Checkout';
 
 interface CheckoutFormData {
@@ -72,7 +73,7 @@ const Checkout: React.FC = () => {
 
   const router = useRouter();
 
-  const { cart, totalPriceString, clearCart } = useCart();
+  const { cart, totalPriceString, clearCart, installmentPrice } = useCart();
   const { createPayer, payerData, clearPayer } = usePayer();
   const { addToast } = useToast();
 
@@ -342,6 +343,7 @@ const Checkout: React.FC = () => {
             </LeftSide>
             <RightSide>
               <span>{totalPriceString}</span>
+              <Installment>Ou apenas por 12x de {installmentPrice}</Installment>
             </RightSide>
           </ButtonCart>
 

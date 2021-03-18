@@ -23,6 +23,7 @@ import FileList from '../../components/FileList';
 import Review from '../../components/Review';
 import FAB from '../../components/FAB';
 import Footer from '../../components/Footer';
+import CountDown from '../../components/CountDown';
 
 import { useCart } from '../../context/cart';
 import { useFiles } from '../../context/files';
@@ -78,6 +79,7 @@ import {
   ImageArea,
   ReviewList,
   LoadingArea,
+  InstallmentArea,
 } from '../../styles/pages/Product';
 
 interface IImagesArray {
@@ -183,6 +185,15 @@ const Product: React.FC<IProductProps> = ({
   const [loadByRange, setLoadByRange] = useState(false);
   const [loading, setLoading] = useState(false);
   const [countReviews, setCountReviews] = useState(5);
+  const [installment, setInstallment] = useState(() => {
+    const installmentValue =
+      ((product.price * 19.79) / 100 + product.price) / 12;
+
+    return installmentValue.toLocaleString('pt-br', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+  });
 
   useEffect(() => {
     router.prefetch('/carrinho');
@@ -260,9 +271,18 @@ const Product: React.FC<IProductProps> = ({
         (item) => item.name === `${e.target.value} `,
       );
 
+      const installmentValue =
+        ((findSize.price * 19.79) / 100 + findSize.price) / 12;
+
       setNewOldPriceString(findSize.oldPriceString);
       setPriceString(findSize.priceString);
       setSizeSelected(findSize);
+      setInstallment(
+        installmentValue.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+      );
     },
     [product],
   );
@@ -551,14 +571,17 @@ const Product: React.FC<IProductProps> = ({
                       <span>EM PROMOÇÃO</span>
                     </PromoArea>
                   )}
-
                   {product.discount > 0 && (
                     <OldPrice>
                       De: <s>{newOldPriceString}</s>
                     </OldPrice>
                   )}
-
                   <NewPrice>Por: {newPriceString}</NewPrice>
+
+                  <InstallmentArea>
+                    <span>Ou por apenas 12x de {installment}</span>
+                  </InstallmentArea>
+
                   {product.discount > 0 && (
                     <EconomyArea>
                       <span>economia {product.discountString}</span>
@@ -652,6 +675,8 @@ const Product: React.FC<IProductProps> = ({
                     ADICIONAR AO CARRINHO
                   </Button>
                 </AddToCartArea>
+
+                {product.discount > 0 && <CountDown />}
 
                 <DescriptionArea>
                   <h2>Detalhes do Produto</h2>

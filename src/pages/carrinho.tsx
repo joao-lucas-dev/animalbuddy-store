@@ -25,6 +25,8 @@ import {
   TotalPrice,
   FinallyArea,
   ButtonFinally,
+  RightSide,
+  Installment,
 } from '../styles/pages/Cart';
 import api from '../services';
 
@@ -64,7 +66,13 @@ interface ICart {
 }
 
 const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
-  const { cart, totalPriceString, clearCart, addProductToCart } = useCart();
+  const {
+    cart,
+    totalPriceString,
+    clearCart,
+    addProductToCart,
+    installmentPrice,
+  } = useCart();
   const { createPayer, clearPayer } = usePayer();
 
   const router = useRouter();
@@ -136,7 +144,10 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
           <TotalArea>
             <span>Total</span>
 
-            <TotalPrice>{totalPriceString}</TotalPrice>
+            <RightSide>
+              <TotalPrice>{totalPriceString}</TotalPrice>
+              <Installment>Ou por apenas 12x de {installmentPrice}</Installment>
+            </RightSide>
           </TotalArea>
 
           <FinallyArea>

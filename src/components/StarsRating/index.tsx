@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { v4 } from 'uuid';
 
 import { Container } from './styles';
@@ -31,4 +31,4 @@ const StarsRating: React.FC<IStarsRating> = ({
   );
 };
 
-export default StarsRating;
+export default memo(StarsRating);
