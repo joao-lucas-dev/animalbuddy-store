@@ -372,6 +372,10 @@ export const Markdown = styled(ReactMarkdown)`
       width: 5px;
     }
   }
+
+  strong {
+    color: #7239f2;
+  }
 `;
 
 export const ReviewCustomersArea = styled.div`
@@ -423,6 +427,7 @@ export const LeftAssessmentsGraph = styled.div`
     color: #bcbcbc;
     font-size: 16px;
     font-weight: 500;
+    text-align: center;
   }
 `;
 
@@ -445,10 +450,6 @@ export const Average = styled.div`
 
 export const Graph = styled.div`
   margin-left: 50px;
-
-  @media (max-width: 365px) {
-    display: none;
-  }
 
   ul {
     li {
@@ -583,4 +584,63 @@ export const InstallmentArea = styled.div`
     color: #444;
     font-weight: 500;
   }
+`;
+
+export const MercadoPagoArea = styled.div`
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+
+export const MercadoPagoAreaMobile = styled.div`
+  @media (min-width: 425px) {
+    display: none;
+  }
+`;
+
+export const ModalBuyMobile = styled.div`
+  display: none;
+  z-index: 999;
+
+  @media (max-width: 425px) {
+    display: block;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 1px 7px #717171;
+    padding: 10px;
+  }
+
+  p {
+    margin-bottom: 10px;
+
+    @media (min-width: 375px) {
+      font-size: 18px;
+    }
+
+    span {
+      color: #7239f2;
+      font-weight: 500;
+    }
+  }
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  height: 10px;
+  background: #eae9e9;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+`;
+
+export const ValueProgressBar = styled.div`
+  width: 30%;
+  height: 10px;
+  background: #ffb900;
+  border-radius: 10px;
+  position: absolute;
 `;

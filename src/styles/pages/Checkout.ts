@@ -366,3 +366,10 @@ export const PaymentArea = styled.div`
     }
   }
 `;
+
+export const MercadoPagoLogoArea = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

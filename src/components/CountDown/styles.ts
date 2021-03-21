@@ -1,8 +1,44 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 24px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  height: 10px;
+  background: #eae9e9;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+`;
+
+export const StockArea = styled.div`
+  @media (max-width: 425px) {
+    display: none;
+  }
+
+  margin-top: 30px;
   margin-bottom: 30px;
+
+  p {
+    margin-bottom: 10px;
+    font-size: 18px;
+
+    span {
+      color: #7239f2;
+      font-weight: 500;
+    }
+  }
+`;
+
+export const ValueProgressBar = styled.div`
+  width: 30%;
+  height: 10px;
+  background: #ffb900;
+  border-radius: 10px;
+  position: absolute;
 `;
 
 export const Top = styled.div`
@@ -19,11 +55,11 @@ export const LeftSide = styled.div`
 `;
 
 export const Number = styled.div`
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
 
-  @media (max-width: 375px) {
-    font-size: 24px;
+  @media (max-width: 425px) {
+    font-size: 30px;
   }
 `;
 
@@ -58,9 +94,9 @@ export const Bottom = styled.div`
 
   span {
     color: #ff0000;
-    font-size: 15px;
+    font-size: 18px;
 
-    @media (max-width: 375px) {
+    @media (max-width: 465px) {
       text-align: center;
     }
   }

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { FaWhatsapp } from 'react-icons/fa';
 
-export const Container = styled.div`
+interface IContanier {
+  isProduct?: boolean;
+}
+
+export const Container = styled.div<IContanier>`
   position: fixed;
   display: flex;
   justify-content: center;
@@ -14,8 +19,24 @@ export const Container = styled.div`
   border-radius: 50%;
   background: #25d366;
   transition: all 0.2s linear;
+  z-index: 9999;
 
   &:hover {
-    opacity: 0.6;
+    background: #1d9048;
   }
+
+  @media (max-width: 425px) {
+    width: ${(props) => props.isProduct && '50px'};
+    height: ${(props) => props.isProduct && '50px'};
+    margin-bottom: ${(props) => props.isProduct && '130px'};
+
+    svg {
+      font-size: ${(props) => props.isProduct && '35px'};
+    }
+  }
+`;
+
+export const Icon = styled(FaWhatsapp)`
+  color: #fff;
+  font-size: 42px;
 `;

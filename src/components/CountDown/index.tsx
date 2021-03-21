@@ -3,6 +3,9 @@ import Countdown from 'react-countdown';
 
 import {
   Container,
+  StockArea,
+  ProgressBar,
+  ValueProgressBar,
   Top,
   LeftSide,
   Number,
@@ -12,35 +15,52 @@ import {
   Bottom,
 } from './styles';
 
-const CountDown: React.FC = () => {
-  const renderer = useCallback(({ hours, minutes, seconds }) => {
-    return (
-      <Container>
-        <Top>
-          <LeftSide>
-            <Number>{hours}</Number>
-            <Title>HORAS</Title>
-          </LeftSide>
+interface ICountDown {
+  stock?: number;
+}
 
-          <MidSide>
-            <Number>{minutes}</Number>
-            <Title>MINUTOS</Title>
-          </MidSide>
+const CountDown: React.FC<ICountDown> = ({ stock }) => {
+  const renderer = useCallback(
+    ({ hours, minutes, seconds }) => {
+      return (
+        <Container>
+          <StockArea>
+            <p>
+              APENAS <span>{stock}</span> PEÇAS EM ESTOQUE
+            </p>
 
-          <RightSide>
-            <Number>{seconds}</Number>
-            <Title>SEGUNDOS</Title>
-          </RightSide>
-        </Top>
+            <ProgressBar>
+              <ValueProgressBar />
+            </ProgressBar>
+          </StockArea>
 
-        <Bottom>
-          <span>A promoção termina quando o temporizador zerar!</span>
-        </Bottom>
-      </Container>
-    );
-  }, []);
+          <Top>
+            <LeftSide>
+              <Number>{hours}</Number>
+              <Title>HORAS</Title>
+            </LeftSide>
 
-  return <Countdown date={Date.now() + 600000} renderer={renderer} />;
+            <MidSide>
+              <Number>{minutes}</Number>
+              <Title>MINUTOS</Title>
+            </MidSide>
+
+            <RightSide>
+              <Number>{seconds}</Number>
+              <Title>SEGUNDOS</Title>
+            </RightSide>
+          </Top>
+
+          <Bottom>
+            <span>A promoção termina quando o temporizador zerar!</span>
+          </Bottom>
+        </Container>
+      );
+    },
+    [stock],
+  );
+
+  return <Countdown date={Date.now() + 900000} renderer={renderer} />;
 };
 
 export default memo(CountDown);

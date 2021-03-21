@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
 
-import { Container } from './styles';
+import { Container, Icon } from './styles';
 
 interface IFAB {
   isProduct?: boolean;
@@ -29,13 +28,13 @@ const FAB: React.FC<IFAB> = ({ isProduct = false }) => {
   }, [isProduct]);
 
   return (
-    <Container>
+    <Container isProduct={isProduct}>
       <a
         href={`https://wa.me/5581971112339?text=${text}`}
         target="_blank"
         rel="noreferrer"
       >
-        <FaWhatsapp size={42} color="#fff" />
+        <Icon />
       </a>
     </Container>
   );

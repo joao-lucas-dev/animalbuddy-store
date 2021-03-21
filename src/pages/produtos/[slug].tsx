@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import Image from 'next/image';
+import { isBefore, addDays } from 'date-fns';
 
 import * as fbq from '../../lib/fpixel';
 
@@ -30,6 +32,7 @@ import { useFiles } from '../../context/files';
 import { useToast } from '../../context/toast';
 
 import getValidationErrors from '../../utils/getValidationErros';
+import randomNumber from '../../utils/generateRandomNumber';
 
 import api from '../../services';
 
@@ -80,6 +83,11 @@ import {
   ReviewList,
   LoadingArea,
   InstallmentArea,
+  MercadoPagoArea,
+  MercadoPagoAreaMobile,
+  ModalBuyMobile,
+  ProgressBar,
+  ValueProgressBar,
 } from '../../styles/pages/Product';
 
 interface IImagesArray {
@@ -186,6 +194,7 @@ const Product: React.FC<IProductProps> = ({
   const [loading, setLoading] = useState(false);
   const [countReviews, setCountReviews] = useState(5);
   const [installment, setInstallment] = useState('');
+  const [stock, setStock] = useState(0);
 
   useEffect(() => {
     router.prefetch('/carrinho');
@@ -235,6 +244,48 @@ const Product: React.FC<IProductProps> = ({
           currency: 'BRL',
         }),
       );
+    }
+
+    if (product.slug) {
+      const objStock = JSON.parse(
+        localStorage.getItem(`@AnimalBuddy:stock-${product.slug}`),
+      );
+
+      if (objStock) {
+        const addOneDay = addDays(new Date(), 1);
+
+        if (!isBefore(objStock.createdAt, addOneDay)) {
+          setStock(objStock.value);
+        } else {
+          const value = randomNumber();
+
+          const obj = {
+            value,
+            createdAt: new Date(),
+          };
+
+          localStorage.setItem(
+            `@AnimalBuddy:stock-${product.slug}`,
+            JSON.stringify(obj),
+          );
+
+          setStock(value);
+        }
+      } else {
+        const value = randomNumber();
+
+        const obj = {
+          value,
+          createdAt: new Date(),
+        };
+
+        localStorage.setItem(
+          `@AnimalBuddy:stock-${product.slug}`,
+          JSON.stringify(obj),
+        );
+
+        setStock(value);
+      }
     }
   }, [product, reviews]);
 
@@ -680,12 +731,36 @@ const Product: React.FC<IProductProps> = ({
                   </Button>
                 </AddToCartArea>
 
-                {product.discount > 0 && <CountDown />}
+                <ModalBuyMobile>
+                  <p>
+                    APENAS <span>{stock}</span> PEÇAS EM ESTOQUE
+                  </p>
+
+                  <ProgressBar>
+                    <ValueProgressBar />
+                  </ProgressBar>
+
+                  <Button phoneMode onClick={handleAddToCart}>
+                    ADICIONAR AO CARRINHO
+                  </Button>
+                </ModalBuyMobile>
+
+                {product.discount > 0 && stock > 0 && (
+                  <CountDown stock={stock} />
+                )}
+
+                <MercadoPagoArea>
+                  <Image src="/mercadopago2.png" width={480} height={160} />
+                </MercadoPagoArea>
+
+                <MercadoPagoAreaMobile>
+                  <Image src="/mercadopago2.png" width={385} height={127} />
+                </MercadoPagoAreaMobile>
 
                 <DescriptionArea>
                   <h2>Detalhes do Produto</h2>
 
-                  <Markdown source={product.description} />
+                  <Markdown source={product.description} skipHtml={false} />
                 </DescriptionArea>
               </RightSide>
             </Content>

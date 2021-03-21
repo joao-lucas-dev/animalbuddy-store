@@ -7,6 +7,7 @@ import { Form } from '@unform/web';
 import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import cep from 'cep-promise';
+import Image from 'next/image';
 
 import { useCart } from '../context/cart';
 import { usePayer } from '../context/payer';
@@ -51,6 +52,7 @@ import {
   FreteInfoArea,
   PaymentArea,
   Installment,
+  MercadoPagoLogoArea,
 } from '../styles/pages/Checkout';
 
 interface CheckoutFormData {
@@ -544,6 +546,15 @@ const Checkout: React.FC = () => {
                 serviço do <strong>MercadoPago</strong> para que possa concluir
                 o pedido.
               </p>
+
+              <MercadoPagoLogoArea>
+                <Image
+                  src="/selo_mercadopago.png "
+                  alt="Logo Mercago Pago"
+                  width={480}
+                  height={195}
+                />
+              </MercadoPagoLogoArea>
             </PaymentArea>
 
             <ButtonsArea>
