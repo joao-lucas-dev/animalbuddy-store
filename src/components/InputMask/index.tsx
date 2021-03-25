@@ -53,26 +53,24 @@ const InputMask: React.FC<Props> = ({ name, getCep, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container
-      removeError={removeError}
-      isErrored={!!error}
-      isFilled={isFilled}
-      isFocused={isFocused}
-    >
-      <ReactInputMask
-        ref={inputRef}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        {...rest}
-      />
+    <>
+      <Container
+        removeError={removeError}
+        isErrored={!!error}
+        isFilled={isFilled}
+        isFocused={isFocused}
+      >
+        <ReactInputMask
+          ref={inputRef}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          defaultValue={defaultValue}
+          {...rest}
+        />
+      </Container>
 
-      {!removeError && error && (
-        <Error title={error}>
-          <FiAlertCircle color="#c53030" size={20} />
-        </Error>
-      )}
-    </Container>
+      {!removeError && error && <Error>{error}</Error>}
+    </>
   );
 };
 

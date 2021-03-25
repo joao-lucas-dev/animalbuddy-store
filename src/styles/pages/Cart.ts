@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import Button from '../../components/Button';
+
+interface IButtonCoupon {
+  loading: boolean;
+}
 
 export const EmptyCartArea = styled.div`
   display: flex;
@@ -134,6 +138,37 @@ export const FretePrice = styled.div`
   }
 `;
 
+export const DiscountArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+
+  margin-top: 20px;
+
+  span {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+export const DiscountPrice = styled.div`
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
+`;
+
 export const TotalArea = styled.div`
   width: 100%;
   display: flex;
@@ -183,11 +218,73 @@ export const TotalPrice = styled.div`
 export const FinallyArea = styled.div`
   margin-top: 30px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
 `;
 
 export const ButtonFinally = styled(Button)`
   @media (max-width: 425px) {
     width: 100% !important;
   }
+`;
+
+export const CouponArea = styled.div`
+  display: flex;
+
+  @media (max-width: 660px) {
+    margin-bottom: 30px;
+  }
+`;
+
+export const InputArea = styled.div`
+  @media (max-width: 660px) {
+    width: 100%;
+  }
+
+  width: 400px;
+
+  span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #ff0000;
+  }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const ButtonCoupon = styled.button<IButtonCoupon>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 1.7em;
+  border: 0;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-weight: 500;
+  height: 52px;
+
+  @media (max-width: 370px) {
+    padding: 0 10px;
+  }
+
+  ${(props) =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;

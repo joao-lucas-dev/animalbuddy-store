@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import Button from '../../components/Button';
 
@@ -130,6 +130,29 @@ export const Installment = styled.span`
   }
 `;
 
+const growDown = keyframes`
+  0% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  100% {
+    transform: scaleY(1)
+  }
+`;
+
+export const OpenCartArea = styled.div`
+  @media (max-width: 425px) {
+    padding: 0 20px;
+  }
+
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  animation: ${growDown} 200ms ease-in-out forwards;
+  transform-origin: top center;
+`;
+
 export const CartArea = styled.div`
   border-bottom: 1px solid #eee;
 `;
@@ -148,6 +171,97 @@ export const FreteArea = styled.div`
     font-size: 18px;
     color: #333;
     font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+export const FretePrice = styled.div`
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
+`;
+
+export const DiscountArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+
+  margin-top: 20px;
+
+  span {
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 14px;
+    }
+  }
+`;
+
+export const DiscountPrice = styled.div`
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 16px;
+  }
+`;
+
+export const TotalArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-top: 20px;
+
+  span {
+    font-size: 22px;
+    color: #333;
+    font-weight: 500;
+
+    @media (max-width: 425px) {
+      font-size: 18px;
+    }
+  }
+`;
+
+export const RightSideCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const InstallmentCart = styled.span`
+  font-size: 18px !important;
+  font-weight: normal !important;
+  display: block;
+  margin-top: 5px;
+
+  @media (max-width: 425px) {
+    font-size: 15px !important;
+  }
+`;
+
+export const TotalPrice = styled.div`
+  font-size: 26px;
+  color: #000;
+  font-weight: 500;
+
+  @media (max-width: 425px) {
+    font-size: 22px;
   }
 `;
 

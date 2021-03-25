@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import * as Yup from 'yup';
+import { FaSpinner } from 'react-icons/fa';
 
 import * as fbq from '../lib/fpixel';
 
 import { useCart } from '../context/cart';
 import { usePayer } from '../context/payer';
+import { useToast } from '../context/toast';
 
 import SEO from '../components/SEO';
 import Header from '../components/Header';
 import CartItem from '../components/CartItem';
 import Footer from '../components/Footer';
 import FAB from '../components/FAB';
+import Input from '../components/Input';
+
+import getValidationErrors from '../utils/getValidationErros';
 
 import {
   EmptyCartArea,
@@ -21,13 +29,19 @@ import {
   CartArea,
   FreteArea,
   FretePrice,
+  DiscountArea,
+  DiscountPrice,
   TotalArea,
   TotalPrice,
   FinallyArea,
   ButtonFinally,
   RightSide,
   Installment,
+  CouponArea,
+  InputArea,
+  ButtonCoupon,
 } from '../styles/pages/Cart';
+
 import api from '../services';
 
 interface IProduct {
@@ -66,12 +80,20 @@ interface ICart {
 }
 
 const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
+  const formRef = useRef<FormHandles>();
+
+  const [loading, setLoading] = useState(false);
+
+  const { addToast } = useToast();
+
   const {
     cart,
     totalPriceString,
     clearCart,
     addProductToCart,
     installmentPrice,
+    addDiscount,
+    coupon,
   } = useCart();
   const { createPayer, clearPayer } = usePayer();
 
@@ -96,6 +118,49 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
     router.prefetch('/produtos');
     router.prefetch('/checkout');
   }, [router]);
+
+  const handleSubmit = useCallback(
+    async (data: { coupon: string }, { reset }) => {
+      try {
+        setLoading(true);
+
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          coupon: Yup.string().required('Cupom é obrigatório'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        const response = await api.get(`/store/coupons/${data.coupon}`);
+
+        addDiscount(response.data);
+        reset();
+        addToast({
+          type: 'success',
+          title: 'Cupom Adicionado!',
+          description: `O cupom ${data.coupon} foi adicionado com sucesso!`,
+        });
+        setLoading(false);
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          console.log(errors);
+
+          formRef.current?.setErrors(errors);
+        } else {
+          formRef.current?.setErrors({ coupon: 'Cupom inválido' });
+        }
+
+        console.log(err);
+        setLoading(false);
+      }
+    },
+    [addDiscount, addToast],
+  );
 
   return (
     <>
@@ -141,6 +206,14 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
             <FretePrice>R$ 0,00</FretePrice>
           </FreteArea>
 
+          {coupon.discountValueString && (
+            <DiscountArea>
+              <span>Desconto - {coupon.name}</span>
+
+              <DiscountPrice>- {coupon.discountValueString}</DiscountPrice>
+            </DiscountArea>
+          )}
+
           <TotalArea>
             <span>Total</span>
 
@@ -151,6 +224,18 @@ const Cart: NextPage<ICart> = ({ cartProps, payerProps }) => {
           </TotalArea>
 
           <FinallyArea>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <CouponArea>
+                <InputArea>
+                  <Input name="coupon" placeholder="Código de desconto" />
+                </InputArea>
+
+                <ButtonCoupon type="submit" loading={loading}>
+                  {loading ? <FaSpinner color="#FFF" size={18} /> : 'Aplicar'}
+                </ButtonCoupon>
+              </CouponArea>
+            </Form>
+
             <ButtonFinally
               miniWidth
               onClick={() => {

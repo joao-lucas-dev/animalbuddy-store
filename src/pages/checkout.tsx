@@ -33,7 +33,16 @@ import {
   ButtonCart,
   LeftSide,
   RightSide,
+  OpenCartArea,
   CartArea,
+  FreteArea,
+  FretePrice,
+  DiscountArea,
+  DiscountPrice,
+  TotalArea,
+  RightSideCart,
+  InstallmentCart,
+  TotalPrice,
   FormArea,
   InfoArea,
   InputArea,
@@ -75,7 +84,13 @@ const Checkout: React.FC = () => {
 
   const router = useRouter();
 
-  const { cart, totalPriceString, clearCart, installmentPrice } = useCart();
+  const {
+    cart,
+    totalPriceString,
+    clearCart,
+    installmentPrice,
+    coupon,
+  } = useCart();
   const { createPayer, payerData, clearPayer } = usePayer();
   const { addToast } = useToast();
 
@@ -350,11 +365,38 @@ const Checkout: React.FC = () => {
           </ButtonCart>
 
           {openCart && (
-            <CartArea>
-              {cart.map((item) => {
-                return <CartItem checkout key={item._id} item={item} />;
-              })}
-            </CartArea>
+            <OpenCartArea>
+              <CartArea>
+                {cart.map((item) => {
+                  return <CartItem checkout key={item._id} item={item} />;
+                })}
+              </CartArea>
+
+              <FreteArea>
+                <span>Frete</span>
+
+                <FretePrice>R$ 0,00</FretePrice>
+              </FreteArea>
+
+              {coupon.discountValueString && (
+                <DiscountArea>
+                  <span>Desconto - {coupon.name}</span>
+
+                  <DiscountPrice>- {coupon.discountValueString}</DiscountPrice>
+                </DiscountArea>
+              )}
+
+              <TotalArea>
+                <span>Total</span>
+
+                <RightSideCart>
+                  <TotalPrice>{totalPriceString}</TotalPrice>
+                  <InstallmentCart>
+                    Ou por apenas 12x de {installmentPrice}
+                  </InstallmentCart>
+                </RightSideCart>
+              </TotalArea>
+            </OpenCartArea>
           )}
         </ResumeCartArea>
 
@@ -387,23 +429,19 @@ const Checkout: React.FC = () => {
                     <Input
                       name="name"
                       autoComplete="shipping given-name"
-                      placeholder="Ex: Maria Rita"
+                      placeholder="Seu nome"
                     />
                   </InputArea>
 
                   <InputArea>
                     <span>Sobrenome</span>
-                    <Input name="surname" placeholder="Ex: Souza" />
+                    <Input name="surname" placeholder="Seu sobrenome" />
                   </InputArea>
                 </DoubleArea>
 
                 <OneArea>
                   <span>E-mail</span>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Ex: joao@gmail.com"
-                  />
+                  <Input name="email" type="email" placeholder="Seu e-mail" />
                 </OneArea>
 
                 <DoubleArea>
@@ -413,7 +451,7 @@ const Checkout: React.FC = () => {
                       name="phone"
                       type="tel"
                       mask="(99) 99999-9999"
-                      placeholder="Ex: (99) 99999-9999"
+                      placeholder="Seu telefone (com DDD)"
                     />
                   </InputArea>
 
@@ -423,7 +461,7 @@ const Checkout: React.FC = () => {
                       name="cpf"
                       type="tel"
                       mask="999.999.999-99"
-                      placeholder="Ex: 999.999.999-99"
+                      placeholder="Seu CPF"
                     />
                   </InputArea>
                 </DoubleArea>
@@ -439,42 +477,45 @@ const Checkout: React.FC = () => {
                       name="zipCode"
                       type="tel"
                       mask="99999-999"
-                      placeholder="Ex: 99999-999"
+                      placeholder="Seu CEP"
                       getCep={getCep}
                     />
                   </InputArea>
 
                   <InputArea>
                     <span>Rua/Avenida</span>
-                    <Input
-                      name="street"
-                      disabled
-                      placeholder="Ex: Rua Amando Souza"
-                    />
+                    <Input name="street" disabled placeholder="Rua/Avenida" />
                   </InputArea>
                 </DoubleArea>
 
                 <DoubleArea>
                   <InputArea>
                     <span>Número</span>
-                    <Input name="number" type="number" placeholder="Ex: 123" />
+                    <Input
+                      name="number"
+                      type="number"
+                      placeholder="Número da casa"
+                    />
                   </InputArea>
 
                   <InputArea>
                     <span>Complemento</span>
-                    <Input name="complement" placeholder="Ex: Apt 123" />
+                    <Input
+                      name="complement"
+                      placeholder="Apartamento, bloco etc (Opcional)"
+                    />
                   </InputArea>
                 </DoubleArea>
 
                 <DoubleArea>
                   <InputArea>
                     <span>Cidade</span>
-                    <Input name="city" disabled placeholder="Ex: São Paulo" />
+                    <Input name="city" disabled placeholder="Cidade" />
                   </InputArea>
 
                   <InputArea>
                     <span>Estado</span>
-                    <Input name="state" disabled placeholder="Ex: SP" />
+                    <Input name="state" disabled placeholder="Estado" />
                   </InputArea>
                 </DoubleArea>
 

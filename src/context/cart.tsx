@@ -6,6 +6,8 @@ import React, {
   useEffect,
 } from 'react';
 
+import formatDiscount from '../utils/formatDiscount';
+
 interface IProduct {
   _id: string;
   title: string;
@@ -20,6 +22,13 @@ interface IProduct {
   model: string;
 }
 
+interface ICoupon {
+  name: string;
+  value: string;
+  discountValueString?: string;
+  discountValue?: number;
+}
+
 interface CartContextData {
   cart: IProduct[];
   totalPriceString: string;
@@ -28,6 +37,8 @@ interface CartContextData {
   removeProductFromCart(product: IProduct): void;
   updateQtdProduct(product: IProduct, qtd: number): void;
   clearCart(): void;
+  coupon: ICoupon;
+  addDiscount(coupon: ICoupon): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -36,19 +47,29 @@ const CartProvider: React.FC = ({ children }) => {
   const [cart, setCart] = useState<IProduct[]>([]);
   const [totalPriceString, setTotalPriceString] = useState('');
   const [installmentPrice, setInstallmentPrice] = useState('');
+  const [coupon, setCoupon] = useState({} as ICoupon);
 
   useEffect(() => {
     const cartStorage = localStorage.getItem('@AnimalBuddy:cart');
+    const discountStorage = localStorage.getItem('@AnimalBuddy:discount');
 
     if (cartStorage) {
       setCart(JSON.parse(cartStorage));
     }
+
+    if (discountStorage) {
+      setCoupon(JSON.parse(discountStorage));
+    }
   }, []);
 
   useEffect(() => {
-    const totalPrice = cart.reduce((acc, item) => {
+    let totalPrice = cart.reduce((acc, item) => {
       return acc + item.price * item.qtd;
     }, 0);
+
+    if (coupon.discountValue) {
+      totalPrice -= coupon.discountValue;
+    }
 
     const installmentValue = ((totalPrice * 19.79) / 100 + totalPrice) / 12;
 
@@ -64,7 +85,7 @@ const CartProvider: React.FC = ({ children }) => {
         currency: 'BRL',
       }),
     );
-  }, [cart]);
+  }, [cart, coupon]);
 
   const addProductToCart = useCallback(
     (product: IProduct) => {
@@ -116,6 +137,9 @@ const CartProvider: React.FC = ({ children }) => {
   const clearCart = useCallback(() => {
     setCart([]);
     localStorage.removeItem('@AnimalBuddy:cart');
+
+    setCoupon({} as ICoupon);
+    localStorage.removeItem('@AnimalBuddy:discount');
   }, []);
 
   const removeProductFromCart = useCallback(
@@ -142,9 +166,13 @@ const CartProvider: React.FC = ({ children }) => {
         setCart(cart);
         localStorage.setItem('@AnimalBuddy:cart', JSON.stringify(cart));
 
-        const totalPrice = cart.reduce((acc, item) => {
+        let totalPrice = cart.reduce((acc, item) => {
           return acc + item.price * item.qtd;
         }, 0);
+
+        if (coupon.discountValue) {
+          totalPrice -= coupon.discountValue;
+        }
 
         const installmentValue = ((totalPrice * 19.79) / 100 + totalPrice) / 12;
 
@@ -162,6 +190,44 @@ const CartProvider: React.FC = ({ children }) => {
         );
       }
     },
+    [cart, coupon],
+  );
+
+  const addDiscount = useCallback(
+    (couponItem: ICoupon) => {
+      const totalPrice = cart.reduce((acc, item) => {
+        return acc + item.price * item.qtd;
+      }, 0);
+
+      const discount = formatDiscount(couponItem.value, totalPrice);
+
+      const newTotalPrice = totalPrice - discount.discountValue;
+      const installmentValue =
+        ((newTotalPrice * 19.79) / 100 + newTotalPrice) / 12;
+
+      setTotalPriceString(
+        newTotalPrice.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+      );
+
+      setInstallmentPrice(
+        installmentValue.toLocaleString('pt-br', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+      );
+
+      const discountObj = {
+        name: couponItem.name,
+        value: couponItem.value,
+        discountValue: discount.discountValue,
+        discountValueString: discount.discountValueString,
+      };
+
+      setCoupon(discountObj);
+    },
     [cart],
   );
 
@@ -175,6 +241,8 @@ const CartProvider: React.FC = ({ children }) => {
         updateQtdProduct,
         clearCart,
         installmentPrice,
+        coupon,
+        addDiscount,
       }}
     >
       {children}
