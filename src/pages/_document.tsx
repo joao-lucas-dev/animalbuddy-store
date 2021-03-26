@@ -9,6 +9,7 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components';
 
 import { FB_PIXEL_ID } from '../lib/fpixel';
+import { GA_TRACKING_ID } from '../lib/gtag';
 
 export default class MyDocument extends Document {
   // eslint-disable-next-line
@@ -69,6 +70,24 @@ export default class MyDocument extends Document {
               `,
             }}
           />
+
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
+
           <noscript>
             <img
               height="1"
